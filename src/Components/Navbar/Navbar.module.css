@@ -1,0 +1,75 @@
+.navContainer {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  background: linear-gradient(180deg, #020617, #020617f2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.dvContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* 🔹 LOGO */
+.logoAndtitleContainer img {
+  height: 50px;
+  width: auto;
+}
+
+/* 🔹 NAV centrado REAL */
+.ulCo {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+
+  margin: 0 auto; /* 👈 ESTO centra los links */
+}
+
+/* 🔹 LINKS */
+.ulCo li a {
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 15px;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s ease;
+}
+
+/* Hover */
+.ulCo li a:hover {
+  color: #38bdf8;
+}
+
+/* Activo */
+.ulCo li a.active {
+  color: #38bdf8;
+}
+
+/* Línea glow */
+.ulCo li a::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  border-radius: 10px;
+
+  background: linear-gradient(90deg, #38bdf8, #22d3ee);
+  box-shadow: 0 0 10px #38bdf8;
+
+  transition: width 0.3s ease;
+}
+
+.ulCo li a:hover::after,
+.ulCo li a.active::after {
+  width: 100%;
+}

@@ -1,0 +1,82 @@
+.stnContainer {
+  width: 100%;
+  min-height: 90vh;
+  padding: 120px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  color: white;
+}
+
+/* 🔹 LEFT */
+.left {
+  flex: 1;
+  max-width: 600px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.left h1 {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.left h1 span {
+  color: #38bdf8;
+}
+
+.left p {
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+/* 🔹 BOTONES */
+.buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.buttons button {
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* secundario */
+.secondary {
+  background: transparent;
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+}
+
+/* primario */
+.primary {
+  background: linear-gradient(90deg, #22d3ee, #3b82f6);
+  color: white;
+  border: none;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+/* 🔹 RIGHT (IMAGEN) */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.right img {
+  width: 100%;
+  max-width: 500px;
+  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.3));
+}
