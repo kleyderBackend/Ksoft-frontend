@@ -2,10 +2,29 @@
   width: 100%;
   min-height: 100vh;
   flex: 1;
+  background-color: #020617; /* fallback */
+  position: relative;
+  isolation: isolate;
+}
+
+.conatinerLading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background-image: url("/img/imgHero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  filter: saturate(1.2) contrast(1.05);
+  opacity: 0.55;
+}
 
-  background-color: #020617; /* fallback */
+.conatinerLading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(900px 700px at 20% 10%, rgba(56, 189, 248, 0.22), transparent 55%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.75), rgba(2, 6, 23, 0.96) 55%, rgba(2, 6, 23, 1));
 }

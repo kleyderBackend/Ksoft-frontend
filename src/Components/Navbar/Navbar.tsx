@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./Navbar.module.css";
 
 interface NavbarProps {
@@ -6,25 +7,72 @@ interface NavbarProps {
   imglogo: string;
 }
 export const Navbar = ({ title, imglogo }: NavbarProps) => {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  const links = useMemo(
+    () => [
+      { to: "/", label: "Inicio" },
+      { to: "/about", label: "Nosotros" },
+      { to: "/products", label: "Productos" },
+      { to: "/contact", label: "Contacto" },
+    ],
+    []
+  );
+
   return (
-    <nav className={styles.navContainer}>
+    <nav className={styles.navContainer} data-open={open ? "true" : "false"}>
       <div className={styles.dvContainer}>
-        <div className={styles.logoAndtitleContainer}>
+        <NavLink
+          to="/"
+          className={styles.logoAndtitleContainer}
+          aria-label={title}
+        >
           <img src={imglogo} alt={`logo de ${title}`} />
-        </div>
+        </NavLink>
         <ul className={styles.ulCo}>
-          <li>
-            <NavLink to={"/"}>Inicio</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/about"}>Nosotros</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/products"}>Productos</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/contact"}>Contacto</NavLink>
-          </li>
+          {links.map((l) => (
+            <li key={l.to}>
+              <NavLink to={l.to}>{l.label}</NavLink>
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.right}>
+          <button
+            type="button"
+            className={styles.cta}
+            onClick={() => navigate("/contact")}
+          >
+            Comenzar
+          </button>
+
+          <button
+            type="button"
+            className={styles.burger}
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.mobilePanel} aria-hidden={!open}>
+        <ul className={styles.mobileLinks}>
+          {links.map((l) => (
+            <li key={l.to}>
+              <NavLink to={l.to}>{l.label}</NavLink>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>

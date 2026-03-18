@@ -13,7 +13,14 @@ interface OurValuesProps {
 export const OurValues = ({ values }: OurValuesProps) => {
   return (
     <section className={styles.container}>
-      <h2>Nuestros Valores</h2>
+      <header className={styles.header}>
+        <div className={styles.eyebrow}>CULTURA</div>
+        <h2>Nuestros Valores</h2>
+        <p className={styles.subtitle}>
+          Principios que guían cada decisión, cada entrega y cada producto.
+        </p>
+        <div className={styles.rule} aria-hidden="true" />
+      </header>
 
       <div className={styles.grid}>
         {values.map((value, index) => (

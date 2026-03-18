@@ -23,24 +23,28 @@ export const ProductsPage = () => {
               description: "Gestión completa para clínicas dentales.",
               icon: "🦷",
               buttonText: "Próximamente",
+              comingSoon: true,
             },
             {
               name: "E-commerce",
               description: "Tiendas online rápidas y escalables.",
               icon: "🛒",
               buttonText: "Próximamente",
+              comingSoon: true,
             },
             {
               name: "CRM",
               description: "Administra clientes y ventas fácilmente.",
               icon: "📊",
               buttonText: "Próximamente",
+              comingSoon: true,
             },
             {
               name: "Apps personalizadas",
               description: "Soluciones hechas a medida.",
               icon: "📱",
-              buttonText: "Contáctanos",
+              buttonText: "Cotizar",
+              href: "/contact",
             },
           ]}
         />

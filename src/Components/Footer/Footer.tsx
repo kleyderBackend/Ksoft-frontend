@@ -16,9 +16,9 @@ export const Footer = () => {
         {/* 🔹 LINKS */}
         <div className={styles.links}>
           <h4>Empresa</h4>
-          <a href="#">Nosotros</a>
-          <a href="#">Productos</a>
-          <a href="#">Contacto</a>
+          <a href="/about">Nosotros</a>
+          <a href="/products">Productos</a>
+          <a href="/contact">Contacto</a>
         </div>
 
         <div className={styles.links}>

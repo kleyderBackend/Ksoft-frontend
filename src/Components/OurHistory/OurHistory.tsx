@@ -8,8 +8,15 @@ interface OurHistoryProps {
 export const OurHistory = ({ title, description }: OurHistoryProps) => {
   return (
     <section className={styles.container}>
-      <h2>{title}</h2>
-      <p>{description}</p>
+      <header className={styles.header}>
+        <div className={styles.eyebrow}>HISTORIA</div>
+        <h2>{title}</h2>
+        <div className={styles.rule} aria-hidden="true" />
+      </header>
+
+      <div className={styles.card}>
+        <p>{description}</p>
+      </div>
     </section>
   );
 };

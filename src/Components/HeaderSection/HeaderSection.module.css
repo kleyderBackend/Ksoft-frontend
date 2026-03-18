@@ -9,12 +9,32 @@
   text-align: center;
 
   /* 🔥 fondo sutil tipo tech */
-  background: radial-gradient(circle at top, #0f172a, #020617);
+  background: radial-gradient(circle at top, rgba(56, 189, 248, 0.10), transparent 55%),
+    radial-gradient(circle at top, #0f172a, #020617);
+  position: relative;
+  overflow: hidden;
+}
+
+.stnCoantinerHeader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      rgba(56, 189, 248, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px, 56px 56px;
+  opacity: 0.10;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at 50% 20%, black 0%, transparent 62%);
 }
 
 /* 🔹 CONTENIDO */
 .dvConatinerHeaderSections {
   max-width: 900px;
+  position: relative;
+  z-index: 1;
 }
 
 /* 🔥 TÍTULO */
@@ -24,9 +44,11 @@
   line-height: 1.2;
 
   margin-bottom: 20px;
+  letter-spacing: -0.02em;
 
   /* efecto gradiente pro */
-  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  background: linear-gradient(90deg, #38bdf8, #22d3ee, #3b82f6);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

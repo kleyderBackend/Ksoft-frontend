@@ -12,7 +12,10 @@ interface AreasSectionProps {
 export const AreasSection = ({ areas }: AreasSectionProps) => {
   return (
     <section className={styles.areasSection}>
-      <h2>Nuestras Áreas</h2>
+      <header className={styles.header}>
+        <h2>Nuestras Áreas</h2>
+        <div className={styles.divider} aria-hidden="true" />
+      </header>
 
       <div className={styles.container}>
         {areas.map((area, index) => (

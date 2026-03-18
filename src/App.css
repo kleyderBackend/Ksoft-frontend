@@ -1,5 +1,124 @@
-html, body {
+:root {
+  color-scheme: dark;
+
+  --bg0: #020617;
+  --bg1: #050b1e;
+  --panel: rgba(15, 23, 42, 0.55);
+  --panel2: rgba(2, 6, 23, 0.55);
+  --stroke: rgba(255, 255, 255, 0.08);
+  --strokeStrong: rgba(56, 189, 248, 0.28);
+
+  --text: rgba(255, 255, 255, 0.92);
+  --muted: rgba(148, 163, 184, 0.92);
+
+  --accent: #38bdf8;
+  --accent2: #22d3ee;
+  --accent3: #3b82f6;
+
+  --shadowGlow: 0 0 24px rgba(56, 189, 248, 0.22);
+  --shadowDeep: 0 24px 70px rgba(0, 0, 0, 0.55);
+
+  --radiusLg: 20px;
+  --radiusMd: 14px;
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Sora", system-ui, -apple-system, Segoe UI, Roboto, Arial,
+    sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 700px at 15% 10%, rgba(56, 189, 248, 0.18), transparent 55%),
+    radial-gradient(900px 600px at 85% 25%, rgba(34, 211, 238, 0.12), transparent 60%),
+    radial-gradient(1000px 700px at 55% 85%, rgba(59, 130, 246, 0.10), transparent 55%),
+    linear-gradient(180deg, var(--bg1), var(--bg0) 55%, #01020a);
+}
+
+/* subtle grid + vignette overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(
+      rgba(56, 189, 248, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px;
+  opacity: 0.16;
+  mask-image: radial-gradient(circle at 30% 10%, black 0%, transparent 62%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -2px;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle at 50% 18%,
+    transparent 35%,
+    rgba(0, 0, 0, 0.38) 75%,
+    rgba(0, 0, 0, 0.62) 100%
+  );
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.28);
+}
+
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+
+/* accessible focus rings */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.14);
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+
+/* scrollbars (webkit + firefox) */
+* {
+  scrollbar-color: rgba(56, 189, 248, 0.35) rgba(2, 6, 23, 0.55);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: rgba(2, 6, 23, 0.55);
+}
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.55), rgba(34, 211, 238, 0.35));
+  border-radius: 999px;
+  border: 2px solid rgba(2, 6, 23, 0.55);
 }

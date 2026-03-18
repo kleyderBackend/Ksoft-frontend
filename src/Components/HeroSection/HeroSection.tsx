@@ -31,6 +31,13 @@ export const HeroSection = ({
           </button>
         </div>
       </div>
+
+      {/* VISUAL */}
+      <div className={styles.right} aria-hidden="true">
+        <div className={styles.visualCard}>
+          <img src="/img/imgHero.jpg" alt="" />
+        </div>
+      </div>
     </section>
   );
 };
