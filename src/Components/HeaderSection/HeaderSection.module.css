@@ -1,0 +1,64 @@
+.stnCoantinerHeader {
+  width: 100%;
+  padding: 120px 20px 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+
+  /* 🔥 fondo sutil tipo tech */
+  background: radial-gradient(circle at top, #0f172a, #020617);
+}
+
+/* 🔹 CONTENIDO */
+.dvConatinerHeaderSections {
+  max-width: 900px;
+}
+
+/* 🔥 TÍTULO */
+.dvConatinerHeaderSections h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+
+  margin-bottom: 20px;
+
+  /* efecto gradiente pro */
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 🔹 SUBTÍTULO */
+.dvConatinerHeaderSections p {
+  font-size: 18px;
+  color: #94a3b8;
+  line-height: 1.7;
+}
+
+/* opcional si quieres resaltar */
+.dvConatinerHeaderSections span {
+  color: #cbd5f5;
+}
+
+@media (max-width: 768px) {
+  .dvConatinerHeaderSections h1 {
+    font-size: 36px;
+  }
+
+  .dvConatinerHeaderSections p {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stnCoantinerHeader {
+    padding: 100px 15px 60px;
+  }
+
+  .dvConatinerHeaderSections h1 {
+    font-size: 28px;
+  }
+}

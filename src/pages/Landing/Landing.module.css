@@ -2,7 +2,7 @@
   width: 100%;
   min-height: 100vh;
   flex: 1;
-  background-image: url("/img/imgHero.jpg"); /* o .jpg */
+  background-image: url("/img/imgHero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

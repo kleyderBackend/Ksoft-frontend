@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.container h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.container p {
+  font-size: 15px;
+  color: #94a3b8;
+}
+
+.note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #64748b;
+}

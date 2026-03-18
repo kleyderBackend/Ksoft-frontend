@@ -1,0 +1,11 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  gap: 100px;
+
+  background: radial-gradient(circle at top, #0f172a, #020617);
+
+  padding-bottom: 80px;
+}

@@ -1,0 +1,31 @@
+.miainContainerAbout {
+  /* 🔥 estructura base */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  /* 🔥 fondo consistente con tu app */
+  background: radial-gradient(circle at top, #0f172a, #020617);
+
+  /* 🔥 separación entre secciones */
+  gap: 100px;
+
+  padding-bottom: 80px;
+}
+
+
+@media (max-width: 900px) {
+  .missionVisionSection {
+    grid-template-columns: 1fr;
+  }
+
+  .miainContainerAbout {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 500px) {
+  .miainContainerAbout {
+    gap: 60px;
+  }
+}

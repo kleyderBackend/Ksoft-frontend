@@ -1,0 +1,28 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  gap: 100px;
+
+  background: radial-gradient(circle at top, #0f172a, #020617);
+
+  padding-bottom: 80px;
+}
+
+/* 🔥 LAYOUT 2 COLUMNAS */
+.contactLayout {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+}
+
+@media (max-width: 900px) {
+  .contactLayout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,68 @@
+.form {
+  padding: 30px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 🔹 CAMPOS */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.field input,
+.field textarea {
+  padding: 12px;
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  color: white;
+
+  outline: none;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: #38bdf8;
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: none;
+}
+
+/* 🔹 BOTÓN */
+.form button {
+  margin-top: 10px;
+
+  padding: 12px;
+  border-radius: 12px;
+
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(90deg, #38bdf8, #22c55e);
+  color: #020617;
+
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.form button:hover {
+  transform: scale(1.03);
+}
