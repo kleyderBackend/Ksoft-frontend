@@ -32,7 +32,7 @@ export const ContactInfo = () => {
           </span>
           <span>
             <div className={styles.label}>Ubicación</div>
-            <div className={styles.value}>Buenos Aires, Argentina</div>
+            <div className={styles.value}>Medellin, Colombia</div>
           </span>
         </div>
       </div>
@@ -48,7 +48,6 @@ export const ContactInfo = () => {
           x
         </a>
       </div>
-
       <p className={styles.note}>Respondemos en menos de 24 horas.</p>
     </aside>
   );

@@ -25,7 +25,11 @@ export const ContactForm = () => {
         if (Object.keys(errors).length > 0) return;
         setStatus("sending");
         // Simulación de envío (sin backend)
-        window.setTimeout(() => setStatus("sent"), 650);
+        window.setTimeout(() => {
+          setStatus("sent");
+          setForm({ name: "", email: "", message: "" });
+          setTouched(false);
+        }, 650);
       }}
     >
       <h3 className={styles.title}>Envíanos un Mensaje</h3>
