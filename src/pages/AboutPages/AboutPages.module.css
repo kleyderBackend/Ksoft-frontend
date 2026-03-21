@@ -122,7 +122,7 @@
 
 .valuesRow {
   width: 100%;
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 14px;
 }
