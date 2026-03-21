@@ -12,6 +12,7 @@ export const Navbar = ({ title, imglogo }: NavbarProps) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false);
   }, [location.pathname]);
 

@@ -1,4 +1,4 @@
-
+import { NavLink } from "react-router-dom";
 import styles from "./Footer.module.css";
 
 export const Footer = () => {
@@ -17,9 +17,9 @@ export const Footer = () => {
         {/* 🔹 LINKS */}
         <div className={styles.links}>
           <h4>Empresa</h4>
-          <a href="/about">Nosotros</a>
-          <a href="/products">Productos</a>
-          <a href="/contact">Contacto</a>
+          <NavLink to="/about">Nosotros</NavLink>
+          <NavLink to="/products">Productos</NavLink>
+          <NavLink to="/contact">Contacto</NavLink>
         </div>
 
         <div className={styles.links}>
