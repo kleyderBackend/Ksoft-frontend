@@ -1,162 +1,105 @@
 .container {
-  padding: 90px 20px 110px;
+  padding: 60px 16px 80px;
   text-align: center;
 }
 
+/* HEADER */
 .header {
-  max-width: 1100px;
-  margin: 0 auto 26px;
+  max-width: 680px;
+  margin: 0 auto 24px;
   display: grid;
-  gap: 12px;
+  gap: 10px;
   justify-items: center;
 }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  height: 26px;
-  padding: 0 12px;
-  border-radius: 999px;
-  background: rgba(2, 6, 23, 0.30);
-  border: 1px solid rgba(56, 189, 248, 0.16);
-  color: rgba(148, 163, 184, 0.95);
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.10);
-}
-
 .header h2 {
-  font-size: 32px;
-  margin: 0;
-  letter-spacing: -0.02em;
+  font-size: clamp(22px, 5vw, 32px);
 }
 
 .subtitle {
-  margin: 0;
-  color: rgba(148, 163, 184, 0.95);
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 720px;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 0 10px;
 }
 
-.rule {
-  width: min(720px, 92%);
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(56, 189, 248, 0.55),
-    rgba(34, 211, 238, 0.25),
-    transparent
-  );
-  box-shadow: 0 0 18px rgba(56, 189, 248, 0.18);
-  opacity: 0.9;
-}
-
-/* 🔹 GRID */
+/* GRID MOBILE FIRST */
 .grid {
-  max-width: 1100px;
-  margin: 0 auto;
-
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
-/* 🔹 CARD */
+/* CARD */
 .card {
-  padding: 30px;
-  border-radius: 18px;
-
-  background: rgba(15, 23, 42, 0.42);
-  backdrop-filter: blur(14px);
-
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 18px;
-  padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(56, 189, 248, 0.45),
-    rgba(34, 211, 238, 0.15),
-    rgba(255, 255, 255, 0.06)
-  );
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -80px -50px auto -50px;
-  height: 220px;
-  background: radial-gradient(circle at 22% 35%, rgba(56, 189, 248, 0.18), transparent 70%);
-  pointer-events: none;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(56, 189, 248, 0.26);
-  box-shadow: 0 0 26px rgba(56, 189, 248, 0.14), 0 24px 55px rgba(0, 0, 0, 0.45);
-}
-
-/* 🔹 ICON */
-.icon {
-  width: 56px;
-  height: 56px;
+  padding: 22px;
   border-radius: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(2, 6, 23, 0.35);
-  border: 1px solid rgba(56, 189, 248, 0.20);
-  box-shadow: 0 0 22px rgba(56, 189, 248, 0.16);
-  font-size: 26px;
-  margin: 0 auto 14px;
-  position: relative;
-  z-index: 1;
+
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+
+  transition: transform 0.2s ease;
 }
 
-/* 🔹 TEXT */
+/* Quita hover agresivo en móvil */
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* ICON */
+.icon {
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* TEXT */
 .card h4 {
-  font-size: 18px;
-  margin: 0 0 10px;
-  letter-spacing: -0.01em;
-  position: relative;
-  z-index: 1;
+  font-size: 16px;
 }
 
 .card p {
-  font-size: 14px;
-  color: rgba(148, 163, 184, 0.95);
-  line-height: 1.6;
-  margin: 0;
-  position: relative;
-  z-index: 1;
+  font-size: 13px;
 }
 
-@media (max-width: 900px) {
+/* TABLET */
+@media (min-width: 600px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 500px) {
+/* DESKTOP */
+@media (min-width: 1024px) {
+  .container {
+    padding: 90px 20px 110px;
+  }
+
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+
+  .card {
+    padding: 30px;
+  }
+
+  .icon {
+    width: 56px;
+    height: 56px;
+    font-size: 26px;
+  }
+
+  .card h4 {
+    font-size: 18px;
+  }
+
+  .card p {
+    font-size: 14px;
   }
 }
