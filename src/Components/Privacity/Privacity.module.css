@@ -1,0 +1,69 @@
+.container {
+  margin: 2rem auto;
+  max-width: 800px;
+  line-height: 1.8;
+  font-family: "Inter", sans-serif;
+  color: #f9fafb; /* Blanco suave para fondo oscuro */
+  padding: 1rem 2rem;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: #ffffff; /* Blanco puro para título */
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* línea sutil para separar */
+  padding-bottom: 0.5rem;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #e5e7eb; /* Blanco grisáceo para subtítulos */
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.text {
+  font-size: 1rem;
+  color: #d1d5db; /* Gris claro para párrafos */
+}
+
+.text p {
+  margin: 0.75rem 0;
+}
+
+.list {
+  padding-left: 1.5rem;
+  margin: 0.5rem 0 1rem 0;
+  list-style-type: disc;
+}
+
+.list li {
+  margin: 0.5rem 0;
+  color: #d1d5db; /* gris claro consistente en listas */
+}
+
+.highlight {
+  font-weight: 600;
+  color: #ffffff; /* resaltar palabras clave */
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+  }
+}

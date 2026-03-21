@@ -16,23 +16,39 @@ export const ContactForm = () => {
     return e;
   }, [form]);
 
+  const handleSubmit = async (ev: React.FormEvent) => {
+    ev.preventDefault();
+    setTouched(true);
+    if (Object.keys(errors).length > 0) return;
+
+    setStatus("sending");
+
+    const body = new URLSearchParams({
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    });
+
+    try {
+      await fetch("https://script.google.com/macros/s/AKfycbxrFoiixnTV8Hye1VtXStXxeoEwKBqSJ_5O1T-tOZdnIBBpuz6sPU6QVLak6OpMTPZbQw/exec", {
+        method: "POST",
+        body: body,
+      });
+
+      setStatus("sent");
+      setForm({ name: "", email: "", message: "" });
+      setTouched(false);
+    } catch (err) {
+      console.error(err);
+      setStatus("idle");
+      alert("Hubo un error, intenta de nuevo.");
+    }
+  };
+
   return (
-    <form
-      className={styles.form}
-      onSubmit={(ev) => {
-        ev.preventDefault();
-        setTouched(true);
-        if (Object.keys(errors).length > 0) return;
-        setStatus("sending");
-        // Simulación de envío (sin backend)
-        window.setTimeout(() => {
-          setStatus("sent");
-          setForm({ name: "", email: "", message: "" });
-          setTouched(false);
-        }, 650);
-      }}
-    >
+    <form className={styles.form} onSubmit={handleSubmit}>
       <h3 className={styles.title}>Envíanos un Mensaje</h3>
+
       <div className={styles.field}>
         <label>Nombre</label>
         <input
@@ -78,8 +94,8 @@ export const ContactForm = () => {
         {status === "sending"
           ? "Enviando..."
           : status === "sent"
-          ? "Enviado"
-          : "Enviar mensaje"}
+            ? "Enviado"
+            : "Enviar mensaje"}
       </button>
 
       {status === "sent" ? (

@@ -1,0 +1,72 @@
+/* FAQ.module.css */
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: center;
+  color: #111827;
+  margin-bottom: 40px;
+}
+
+.accordionItem {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.accordionButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 18px 20px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1f2937;
+  background-color: #f9fafb;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.accordionButton:hover {
+  background-color: #f3f4f6;
+}
+
+.accordionContent {
+  padding: 18px 20px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #4b5563;
+  background-color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+
+  .accordionButton {
+    font-size: 1rem;
+  }
+
+  .accordionContent {
+    font-size: 0.9rem;
+  }
+}

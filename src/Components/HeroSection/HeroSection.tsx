@@ -1,16 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import styles from "./HeroSection.module.css";
 
 interface HeroSectionProps {
   subTitile: string;
   descriptions: string;
-  cta: () => void;
 }
 
 export const HeroSection = ({
   subTitile,
   descriptions,
-  cta,
 }: HeroSectionProps) => {
+  const navigate = useNavigate();
   return (
     <section className={styles.stnContainer}>
       {/* TEXTO */}
@@ -23,10 +23,13 @@ export const HeroSection = ({
         <p>{descriptions}</p>
 
         <div className={styles.buttons}>
-          <button className={styles.secondary} onClick={cta}>
+          <button
+            className={styles.secondary}
+            onClick={() => navigate("/about")}
+          >
             Conoce Más
           </button>
-          <button className={styles.primary} onClick={cta}>
+          <button className={styles.primary} onClick={() => navigate("/contact")}>
             Comenzar Proyecto
           </button>
         </div>

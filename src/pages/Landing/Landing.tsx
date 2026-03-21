@@ -3,6 +3,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { HeroSection } from "../../Components/HeroSection/HeroSection";
 import { Navbar } from "../../Components/Navbar/Navbar";
 import { StatsSection } from "../../Components/StatsSection/StatsSection";
+import { FaCode, FaMobileAlt, FaServer, FaTools } from "react-icons/fa";
 import styles from "./Landing.module.css";
 export const Landing = () => {
   return (
@@ -12,7 +13,6 @@ export const Landing = () => {
         <HeroSection
           subTitile="Innovamos. Desarrollamos. Escalamos"
           descriptions="Transformamos Ideas en soluciones digitales de alto impacto"
-          cta={() => alert("Acción ejecutada")}
         />
         <StatsSection
           stats={[
@@ -24,10 +24,10 @@ export const Landing = () => {
         />
         <AreasSection
           areas={[
-            { title: "Desarrollo Web", icon: "🌐" },
-            { title: "Apps móviles", icon: "📱" },
-            { title: "Cloud", icon: "☁️" },
-            { title: "AI", icon: "🤖" },
+            { title: "Desarrollo Web", icon: <FaCode /> },
+            { title: "Aplicaciones a Medida", icon: <FaServer /> },
+            { title: "Interfaces Modernas", icon: <FaMobileAlt /> },
+            { title: "Mantenimiento y Soporte", icon: <FaTools /> },
           ]}
         />
       </main>

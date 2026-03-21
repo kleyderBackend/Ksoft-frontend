@@ -1,3 +1,4 @@
+
 import styles from "./Footer.module.css";
 
 export const Footer = () => {
@@ -24,16 +25,16 @@ export const Footer = () => {
         <div className={styles.links}>
           <h4>Servicios</h4>
           <a href="#">Desarrollo Web</a>
-          <a href="#">Apps móviles</a>
-          <a href="#">Cloud</a>
-          <a href="#">AI</a>
+          <a href="#">Aplicaciones a medida</a>
+          <a href="#">Interfaces Modernas</a>
+          <a href="#">Mantemiento y Soporrte</a>
         </div>
 
         <div className={styles.links}>
           <h4>Soporte</h4>
-          <a href="#">FAQ</a>
-          <a href="#">Ayuda</a>
-          <a href="#">Privacidad</a>
+          <a href="/faq">FAQ</a>
+          <a href="/contact">Ayuda</a>
+          <a href="/privacity">Privacidad</a>
         </div>
       </div>
 

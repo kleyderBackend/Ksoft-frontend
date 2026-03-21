@@ -12,7 +12,7 @@ export const ContactInfo = () => {
           </span>
           <span>
             <div className={styles.label}>Email</div>
-            <div className={styles.value}>contacto@ksoft.com</div>
+            <div className={styles.value}>ksoft.devteam@gmail.com</div>
           </span>
         </a>
 
@@ -43,9 +43,6 @@ export const ContactInfo = () => {
         </a>
         <a className={styles.socialBtn} href="#" aria-label="Instagram">
           ig
-        </a>
-        <a className={styles.socialBtn} href="#" aria-label="X">
-          x
         </a>
       </div>
       <p className={styles.note}>Respondemos en menos de 24 horas.</p>

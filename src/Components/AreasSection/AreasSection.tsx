@@ -2,7 +2,7 @@ import styles from "./AreasSection.module.css";
 
 interface Area {
   title: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 interface AreasSectionProps {
