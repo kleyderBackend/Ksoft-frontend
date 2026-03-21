@@ -32,9 +32,9 @@ export const Footer = () => {
 
         <div className={styles.links}>
           <h4>Soporte</h4>
-          <a href="/faq">FAQ</a>
-          <a href="/contact">Ayuda</a>
-          <a href="/privacity">Privacidad</a>
+          <NavLink to="/faq">FAQ</NavLink>
+          <NavLink to="/contact">Ayuda</NavLink>
+          <NavLink to="/privacity">Privacidad</NavLink>
         </div>
       </div>
 
