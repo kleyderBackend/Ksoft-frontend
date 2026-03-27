@@ -17,6 +17,17 @@ interface ProductsGridProps {
 export const ProductsGrid = ({ products }: ProductsGridProps) => {
   const navigate = useNavigate();
 
+  // Función para manejar la navegación
+  const handleNavigation = (href: string) => {
+    if (href.startsWith("http")) {
+      // Si es un link externo (como Vercel), usamos window.location
+      window.open(href, "_blank", "noopener,noreferrer");
+    } else {
+      // Si es una ruta interna (como /contacto), usamos navigate
+      navigate(href);
+    }
+  };
+
   return (
     <section className={styles.container}>
       <h2>Nuestros productos</h2>
@@ -29,14 +40,20 @@ export const ProductsGrid = ({ products }: ProductsGridProps) => {
             <p className={styles.desc}>{product.description}</p>
 
             <div className={styles.actions}>
+              {/* Si es comingSoon, mostramos el botón de lista de espera o el badge */}
               {product.comingSoon ? (
-                <span className={styles.badge}>Próximamente</span>
+                <button
+                  className={styles.buttonWaiting}
+                  onClick={() => product.href && handleNavigation(product.href)}
+                >
+                  {product.buttonText}
+                </button>
               ) : (
                 <button
                   type="button"
                   className={styles.button}
                   onClick={() => {
-                    if (product.href) navigate(product.href);
+                    if (product.href) handleNavigation(product.href);
                   }}
                 >
                   {product.buttonText}
