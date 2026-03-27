@@ -22,10 +22,10 @@ export const ProductsPage = () => {
               name: "SaaS Dental",
               description: "Gestión completa para clínicas dentales.",
               icon: "🦷",
-              buttonText: "Próximamente",
+              buttonText: "Quiero acceso anticipado",
               comingSoon: true,
+              href: "https://ksoft-dental.vercel.app/",
             },
-            
           ]}
         />
 
