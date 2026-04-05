@@ -12,7 +12,7 @@ export const ContactInfo = () => {
           </span>
           <span>
             <div className={styles.label}>Email</div>
-            <div className={styles.value}>ksoft.devteam@gmail.com</div>
+            <div className={styles.value}>ksoft.team.dev@gmail.com</div>
           </span>
         </a>
 

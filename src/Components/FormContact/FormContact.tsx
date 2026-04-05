@@ -23,17 +23,20 @@ export const ContactForm = () => {
 
     setStatus("sending");
 
-    const body = new URLSearchParams({
+    const query = new URLSearchParams({
       name: form.name,
       email: form.email,
       message: form.message,
     });
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbxrFoiixnTV8Hye1VtXStXxeoEwKBqSJ_5O1T-tOZdnIBBpuz6sPU6QVLak6OpMTPZbQw/exec", {
-        method: "POST",
-        body: body,
-      });
+      await fetch(
+        `https://script.google.com/macros/s/AKfycbxn5xT14ewPCAZ2WxDv4wOyuWHmG6x5-5jKMs-zlDUz6OiEA50As1nLvQn8iVsc6dgHEQ/exec?${query.toString()}`,
+        {
+          method: "GET",
+          mode: "no-cors",
+        },
+      );
 
       setStatus("sent");
       setForm({ name: "", email: "", message: "" });
