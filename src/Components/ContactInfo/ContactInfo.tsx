@@ -38,10 +38,11 @@ export const ContactInfo = () => {
       </div>
 
       <div className={styles.socialRow} aria-label="Redes">
-        <a className={styles.socialBtn} href="#" aria-label="LinkedIn">
-          in
-        </a>
-        <a className={styles.socialBtn} href="#" aria-label="Instagram">
+        <a
+          className={styles.socialBtn}
+          href="https://www.instagram.com/ksoft_technology/"
+          aria-label="Instagram"
+        >
           ig
         </a>
       </div>
