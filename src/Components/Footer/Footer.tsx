@@ -9,8 +9,7 @@ export const Footer = () => {
         <div className={styles.brand}>
           <h2>Ksoft</h2>
           <p>
-            Innovamos, desarrollamos y escalamos soluciones digitales de alto
-            impacto.
+            Desarrollo de software a medida y productos SaaS propios para tu empresa.
           </p>
         </div>
 
@@ -24,10 +23,10 @@ export const Footer = () => {
 
         <div className={styles.links}>
           <h4>Servicios</h4>
-          <a href="#">Desarrollo Web</a>
-          <a href="#">Aplicaciones a medida</a>
-          <a href="#">Interfaces Modernas</a>
-          <a href="#">Mantemiento y Soporrte</a>
+          <NavLink to="/#servicios">Software a medida</NavLink>
+          <NavLink to="/#servicios">Sitios web</NavLink>
+          <NavLink to="/#servicios">Aplicaciones</NavLink>
+          <NavLink to="/products">Productos SaaS</NavLink>
         </div>
 
         <div className={styles.links}>

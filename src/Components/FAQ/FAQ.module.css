@@ -2,9 +2,12 @@
 
 .container {
   max-width: 900px;
-  margin: 40px auto;
+  margin: 120px auto 60px;
+  width: calc(100% - 40px);
+  min-height: 60vh;
   padding: 40px;
-  background-color: #fdfdfd;
+  background-color: var(--panel);
+  border: 1px solid var(--stroke);
   border-radius: 12px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
 }
@@ -13,7 +16,7 @@
   font-size: 2.25rem;
   font-weight: 700;
   text-align: center;
-  color: #111827;
+  color: var(--text);
   margin-bottom: 40px;
 }
 
@@ -21,8 +24,8 @@
   margin-bottom: 16px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+  border: 1px solid var(--stroke);
+  background-color: var(--panel2);
 }
 
 .accordionButton {
@@ -33,29 +36,32 @@
   padding: 18px 20px;
   font-size: 1.05rem;
   font-weight: 600;
-  color: #1f2937;
-  background-color: #f9fafb;
+  color: var(--text);
+  background-color: transparent;
+  text-align: left;
+  gap: 16px;
   border: none;
   cursor: pointer;
   transition: background 0.2s;
 }
 
 .accordionButton:hover {
-  background-color: #f3f4f6;
+  background-color: rgba(56, 189, 248, 0.08);
 }
 
 .accordionContent {
+  overflow-wrap: anywhere;
   padding: 18px 20px;
   font-size: 0.95rem;
   line-height: 1.7;
-  color: #4b5563;
-  background-color: #ffffff;
+  color: #cbd5e1;
+  background-color: transparent;
 }
 
 @media (max-width: 640px) {
   .container {
     padding: 20px;
-    margin: 20px;
+    margin: 110px auto 40px;
   }
 
   .title {

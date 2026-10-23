@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./HeroSection.module.css";
 
 interface HeroSectionProps {
@@ -10,28 +10,20 @@ export const HeroSection = ({
   subTitile,
   descriptions,
 }: HeroSectionProps) => {
-  const navigate = useNavigate();
   return (
     <section className={styles.stnContainer}>
       {/* TEXTO */}
       <div className={styles.left}>
+        <p className={styles.eyebrow}>KSOFT TECHNOLOGY</p>
         <h1>
-          Ksoft <br />
           <span>{subTitile}</span>
         </h1>
 
         <p>{descriptions}</p>
 
         <div className={styles.buttons}>
-          <button
-            className={styles.secondary}
-            onClick={() => navigate("/about")}
-          >
-            Conoce Más
-          </button>
-          <button className={styles.primary} onClick={() => navigate("/contact")}>
-            Comenzar Proyecto
-          </button>
+          <Link className={styles.primary} to="/contact">Cotizar un proyecto</Link>
+          <Link className={styles.secondary} to="/products">Explorar nuestros productos</Link>
         </div>
       </div>
 

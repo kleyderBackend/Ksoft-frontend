@@ -28,7 +28,7 @@
 }
 
 .logoAndtitleContainer img {
-  height: 50px;
+  height: 58px;
   width: auto;
 }
 
@@ -58,7 +58,7 @@
 }
 
 /* Activo */
-.ulCo li a.active {
+.ulCo li a[aria-current="page"] {
   color: #38bdf8;
 }
 
@@ -79,7 +79,7 @@
 }
 
 .ulCo li a:hover::after,
-.ulCo li a.active::after {
+.ulCo li a[aria-current="page"]::after {
   width: 100%;
 }
 
@@ -110,6 +110,7 @@
 }
 
 .burger {
+  flex-direction: column;
   width: 40px;
   height: 40px;
   border-radius: 12px;
@@ -161,6 +162,9 @@
 }
 
 @media (max-width: 900px) {
+  .right {
+    margin-left: auto;
+  }
   .ulCo {
     display: none;
   }

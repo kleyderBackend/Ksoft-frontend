@@ -7,7 +7,7 @@ export const CTASection = () => {
     <section className={styles.container}>
       <h2>¿Listo para construir algo grande?</h2>
       <p>
-        Contanos tu idea y te proponemos un plan claro, tiempos y un presupuesto
+        Cuéntanos tu idea y te proponemos un plan claro, tiempos y un presupuesto
         realista.
       </p>
       <button type="button" onClick={() => navigate("/contact")}>

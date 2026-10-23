@@ -2,16 +2,17 @@ import React from "react";
 import styles from "./Privacity.module.css";
 import { Navbar } from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
+import { CONTACT_EMAIL } from "../../config/contact";
 
 export const Privacity: React.FC = () => {
   return (
     <>
-      <Navbar title="KSoft" imglogo="/img/logo.png" />
-      <div className={styles.container}>
-        <h4 className={styles.title}>Política de Privacidad de KSoft</h4>
+      <Navbar title="Ksoft" imglogo="/img/logo.png" />
+      <main id="main-content" tabIndex={-1} className={styles.container}>
+        <h1 className={styles.title}>Política de Privacidad de Ksoft</h1>
         <div className={styles.text}>
           <p>
-            En <strong>KSoft</strong> nos comprometemos a proteger la privacidad
+            En <strong>Ksoft</strong> nos comprometemos a proteger la privacidad
             y seguridad de los datos personales de nuestros usuarios. La
             presente política detalla cómo recopilamos, utilizamos, almacenamos
             y protegemos la información, conforme a los estándares legales y
@@ -34,7 +35,7 @@ export const Privacity: React.FC = () => {
             </li>
             <li>
               <strong>Minimización de Datos:</strong> Solo solicitamos los datos
-              estrictamente necesarios (nombre y correo electrónico).
+              necesarios para atender la solicitud (nombre, correo electrónico y mensaje).
             </li>
             <li>
               <strong>Exactitud:</strong> Garantizamos que los datos sean
@@ -65,13 +66,14 @@ export const Privacity: React.FC = () => {
           <ul className={styles.list}>
             <li>Nombre completo.</li>
             <li>Correo electrónico.</li>
+            <li>El mensaje que compartes en el formulario de contacto.</li>
           </ul>
 
           <h5 className={styles.sectionTitle}>3. Uso de la información</h5>
           <p>La información se utiliza exclusivamente para:</p>
           <ul className={styles.list}>
             <li>Proveer y mejorar nuestros servicios.</li>
-            <li>Comunicar novedades, actualizaciones o soporte técnico.</li>
+            <li>Responder consultas y dar seguimiento a solicitudes de servicios o soporte.</li>
             <li>Cumplir obligaciones legales y regulatorias.</li>
           </ul>
 
@@ -92,17 +94,17 @@ export const Privacity: React.FC = () => {
             Nuestros usuarios pueden ejercer sus derechos de acceso,
             rectificación, cancelación y oposición respecto a sus datos
             personales, así como solicitar su eliminación cuando corresponda.
-            Para ello, pueden contactarnos mediante nuestros canales oficiales.
+            Para ello, pueden escribirnos a <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
           </p>
 
           <h5 className={styles.sectionTitle}>6. Aceptación de la política</h5>
           <p>
-            Al utilizar los servicios de <strong>KSoft</strong>, los usuarios
+            Al utilizar los servicios de <strong>Ksoft</strong>, los usuarios
             aceptan la recopilación y tratamiento de sus datos conforme a esta
             política de privacidad.
           </p>
         </div>
-      </div>
+      </main>
       <Footer/>
     </>
   );

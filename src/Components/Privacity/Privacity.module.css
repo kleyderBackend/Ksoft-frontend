@@ -1,5 +1,5 @@
 .container {
-  margin: 2rem auto;
+  margin: 110px auto 40px;
   max-width: 800px;
   line-height: 1.8;
   font-family: "Inter", sans-serif;
@@ -52,7 +52,7 @@
 @media (max-width: 768px) {
   .container {
     padding: 1rem;
-    margin: 1rem;
+    margin: 110px 1rem 40px;
   }
 
   .title {

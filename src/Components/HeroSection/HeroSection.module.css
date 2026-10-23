@@ -1,7 +1,7 @@
 .stnContainer {
   width: 100%;
-  min-height: 90vh;
-  padding: 120px 40px;
+  min-height: 650px;
+  padding: 140px 24px 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +23,8 @@
 }
 
 .left h1 {
-  font-size: 52px;
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.1rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -34,19 +35,36 @@
 }
 
 .left p {
+  margin: 0;
+  line-height: 1.7;
   color: #94a3b8;
   font-size: 16px;
   max-width: 520px;
 }
 
+.left .eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: #67e8f9;
+  font-weight: 600;
+}
+
 /* 🔹 BOTONES */
 .buttons {
+  flex-wrap: wrap;
   display: flex;
   gap: 15px;
   margin-top: 20px;
 }
 
-.buttons button {
+.buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
   padding: 12px 22px;
   border-radius: 999px;
   font-weight: 600;
@@ -71,7 +89,7 @@
   box-shadow: 0 0 18px rgba(34, 211, 238, 0.28), 0 18px 35px rgba(0, 0, 0, 0.35);
 }
 
-.buttons button:hover {
+.buttons a:hover {
   transform: translateY(-1px);
 }
 
@@ -116,10 +134,16 @@
     flex-direction: column;
     padding: 110px 20px 60px;
     text-align: center;
+    min-height: auto;
   }
 
   .left {
     align-items: center;
+    min-width: 0;
+  }
+
+  .right {
+    width: 100%;
   }
 
   .buttons {

@@ -30,20 +30,20 @@ export const ProductsGrid = ({ products }: ProductsGridProps) => {
 
   return (
     <section className={styles.container}>
-      <h2>Nuestros productos</h2>
-
       <div className={styles.grid}>
         {products.map((product, index) => (
           <div key={index} className={styles.card}>
-            <div className={styles.icon}>{product.icon}</div>
-            <h3 className={styles.title}>{product.name}</h3>
+            <div className={styles.icon} aria-hidden="true">{product.icon}</div>
+            <h2 className={styles.title}>{product.name}</h2>
             <p className={styles.desc}>{product.description}</p>
+            {product.comingSoon && <p className={styles.badge}>Acceso anticipado</p>}
 
             <div className={styles.actions}>
               {/* Si es comingSoon, mostramos el botón de lista de espera o el badge */}
               {product.comingSoon ? (
                 <button
-                  className={styles.buttonWaiting}
+                  type="button"
+                  className={styles.button}
                   onClick={() => product.href && handleNavigation(product.href)}
                 >
                   {product.buttonText}

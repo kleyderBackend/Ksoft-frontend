@@ -3,19 +3,14 @@
   text-align: center;
 }
 
-.container h2 {
-  font-size: 32px;
-  margin: 0 0 22px;
-  letter-spacing: -0.02em;
-}
-
 /* 🔹 GRID */
 .grid {
   max-width: 1200px;
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 420px));
+  justify-content: center;
   gap: 20px;
 }
 
@@ -92,7 +87,8 @@
 }
 
 .button {
-  height: 38px;
+  min-height: 44px;
+  height: auto;
   padding: 0 18px;
   border-radius: 999px;
   border: 1px solid rgba(56, 189, 248, 0.22);

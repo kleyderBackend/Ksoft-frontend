@@ -13,11 +13,227 @@
   inset: 0;
   z-index: -1;
   background-image: url("/img/imgHero.jpg");
-  background-size: cover;
-  background-position: center;
+  background-size: 1400px auto;
+  background-position: center top;
   background-repeat: no-repeat;
   filter: saturate(1.2) contrast(1.05);
   opacity: 0.55;
+}
+
+.commitments {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+  border-block: 1px solid var(--stroke);
+}
+
+.commitments p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.commitments svg {
+  color: #67e8f9;
+  flex-shrink: 0;
+}
+
+.productsSection,
+.processSection {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 70px 24px;
+}
+
+.productsSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 64px;
+}
+
+.eyebrow {
+  color: #67e8f9;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  margin: 0 0 18px;
+}
+
+.productsSection h2,
+.sectionHeader h2,
+.contactSection h2 {
+  margin: 0 0 20px;
+  font-size: clamp(26px, 3.5vw, 36px);
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+}
+
+.productIntro > p:not(.eyebrow),
+.productCard > p:not(.productCategory),
+.sectionHeader > p:not(.eyebrow),
+.steps p,
+.contactSection > p:not(.eyebrow) {
+  color: #94a3b8;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #67e8f9;
+  font-size: 14px;
+  margin-top: 16px;
+  text-underline-offset: 6px;
+}
+
+.productCard {
+  padding: 36px;
+  border-radius: 24px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 65%), #0b1428;
+  box-shadow: var(--shadowDeep);
+}
+
+.productTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.productIcon {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: rgba(56, 189, 248, 0.1);
+  color: #a5f3fc;
+  font-size: 32px;
+}
+
+.badge {
+  padding: 8px 12px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 999px;
+  color: #a5f3fc;
+  font-size: 12px;
+}
+
+.productCategory {
+  color: #94a3b8;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+}
+
+.productCard h3 {
+  margin: 12px 0;
+  font-size: 30px;
+}
+
+.sectionHeader {
+  max-width: 680px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.steps {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.steps li {
+  padding: 26px;
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  background: var(--panel2);
+}
+
+.stepNumber {
+  color: #38bdf8;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.steps h3 {
+  margin: 18px 0 10px;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.steps p { margin: 0; }
+
+.contactSection {
+  max-width: 1152px;
+  margin: 30px auto 0;
+  padding: 64px 24px;
+  text-align: center;
+  border-top: 1px solid var(--stroke);
+  background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.07), transparent 70%);
+}
+
+.contactSection > p:not(.eyebrow) {
+  max-width: 580px;
+  margin: 0 auto 24px;
+}
+
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #22d3ee, #3b82f6);
+  color: #020617;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.contactSection > p.responseTime {
+  font-size: 12px;
+  margin-top: 18px;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .productsSection { gap: 28px; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .productsSection { grid-template-columns: 1fr; }
+  .productsSection, .processSection { padding: 48px 20px; }
+  .steps { grid-template-columns: 1fr; }
+  .productCard { padding: 26px; }
+  .commitments { margin-inline: 20px; padding-inline: 0; }
 }
 
 .conatinerLading::after {
