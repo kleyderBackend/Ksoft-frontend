@@ -8,12 +8,13 @@ import styles from "./ProductPages.module.css";
 const steps = [
   { icon: FaRegCompass, title: "Conoce el producto", description: "Explora la plataforma y revisa si su enfoque responde a las necesidades de tu negocio." },
   { icon: FaRegComments, title: "Conversemos sobre el acceso", description: "Consúltanos sobre la disponibilidad, las funciones y las condiciones del producto que te interesa." },
-  { icon: FaCheckCircle, title: "Elige con información clara", description: "Antes de contratar, confirma el plan o la licencia, sus límites y las condiciones de uso aplicables." },
+  { icon: FaCheckCircle, title: "Elige con información clara", description: "Antes de contratar, confirma el modelo de cobro, sus condiciones y las funciones incluidas." },
 ];
 
 const questions = [
-  { question: "¿Qué significa acceso anticipado?", answer: "Es el estado actual con el que presentamos SaaS Dental. Contáctanos para confirmar la disponibilidad de acceso y las funcionalidades que puedes utilizar antes de contratar." },
-  { question: "¿Cómo se contratan los productos?", answer: "Los productos SaaS de Ksoft se ofrecen mediante suscripción o licencia de uso. Los planes, tarifas, funcionalidades y límites se definen en la oferta de cada producto. Puedes consultarnos las condiciones vigentes." },
+  { question: "¿Cómo puedo participar en el piloto de Ksoft Dental?", answer: "Ksoft Dental está en preparación de piloto y a la espera de sus primeros usuarios. Contacta con Ksoft para conocer la disponibilidad y las condiciones de participación para tu consultorio." },
+  { question: "¿En qué etapa está Ksoft Travel?", answer: "Ksoft Travel está en preparación para un piloto. Conecta viajeros, hoteles y guías con reservas y herramientas de gestión. Consúltanos la disponibilidad y las condiciones de participación." },
+  { question: "¿Cómo se cobran los productos?", answer: "Ksoft Dental funciona mediante planes de suscripción y Ksoft Travel con un modelo de comisión. Consulta con Ksoft los precios, porcentajes y condiciones aplicables antes de contratar." },
   { question: "¿Puedo solicitar una solución a medida?", answer: "Sí. Además de nuestros productos propios, desarrollamos software, sitios web y aplicaciones a medida. Cuéntanos tus requisitos para evaluar un proyecto con un alcance específico para tu empresa." },
 ];
 
@@ -26,14 +27,14 @@ export const ProductsPage = () => (
           <p className={styles.eyebrow}>PRODUCTOS DE KSOFT TECHNOLOGY</p>
           <h1 id="products-title">Software propio.<br /><span>Enfocado en tu sector.</span></h1>
           <p className={styles.lead}>Creamos productos SaaS para necesidades concretas de negocio. Conoce nuestras plataformas y encuentra el siguiente paso para tu empresa.</p>
-          <p className={styles.body}>Además de desarrollar proyectos a medida, construimos soluciones propias con acceso mediante suscripción o licencia.</p>
+          <p className={styles.body}>Ksoft Dental se ofrece mediante planes de suscripción. Ksoft Travel utiliza un modelo de comisión.</p>
           <div className={styles.actions}>
             <Link className={styles.primaryLink} to="/products#catalogo">Conocer los productos <FaArrowRight aria-hidden="true" /></Link>
             <Link className={styles.textLink} to="/contact">Consultar con Ksoft <FaArrowRight aria-hidden="true" /></Link>
           </div>
         </div>
         <div className={styles.productVisual}>
-          <div className={styles.visualTop}><span><FaLayerGroup aria-hidden="true" />PRODUCTO PROPIO</span><span className={styles.status}><i aria-hidden="true" />Acceso anticipado</span></div>
+          <div className={styles.visualTop}><span><FaLayerGroup aria-hidden="true" />PRODUCTO PROPIO</span><span className={styles.status}><i aria-hidden="true" />{products[0].status}</span></div>
           <div className={styles.toothStage} aria-hidden="true"><div className={styles.orbit} /><div className={styles.toothIcon}><FaTooth /></div></div>
           <p className={styles.visualName}>{products[0].name}</p>
           <p className={styles.visualCaption}>Software para clínicas dentales</p>
@@ -49,24 +50,25 @@ export const ProductsPage = () => (
         {products.map((product) => (
           <article className={styles.productCard} key={product.name}>
             <div className={styles.productBrand}>
-              <span className={styles.productSymbol} aria-hidden="true">{product.icon}</span>
-              <p className={styles.eyebrow}>SALUD DENTAL</p>
+              <span className={styles.productSymbol} aria-hidden="true">{product.logo ? <img src={product.logo} alt="" width="82" height="82" /> : product.icon}</span>
+              <p className={styles.eyebrow}>{product.sector}</p>
               <h3>{product.name}</h3>
               <p>Un producto de Ksoft Technology</p>
-              <span className={styles.status}><i aria-hidden="true" />{product.comingSoon ? "Acceso anticipado" : "Conoce su disponibilidad"}</span>
+              <span className={styles.status}><i aria-hidden="true" />{product.status}</span>
             </div>
             <div className={styles.productInfo}>
-              <p className={styles.cardLabel}>PARA LA GESTIÓN DE CLÍNICAS DENTALES</p>
-              <h4>Conoce una solución pensada para tu clínica.</h4>
+              <p className={styles.cardLabel}>SOFTWARE PARA {product.sector.toUpperCase()}</p>
+              <h4>{product.headline}</h4>
               <p>{product.description}</p>
               <dl className={styles.facts}>
-                <div><dt>Dirigido a</dt><dd>Clínicas dentales</dd></div>
+                <div><dt>Dirigido a</dt><dd>{product.audience}</dd></div>
                 <div><dt>Modalidad</dt><dd>Producto SaaS</dd></div>
-                <div><dt>Disponibilidad</dt><dd>Consulta el acceso anticipado</dd></div>
+                <div><dt>Modelo de cobro</dt><dd>{product.billingModel}</dd></div>
+                <div><dt>Disponibilidad</dt><dd>{product.availability}</dd></div>
               </dl>
               <div className={styles.actions}>
-                <a className={styles.primaryLink} href={product.href} target="_blank" rel="noopener noreferrer">{product.buttonText}<span className={styles.srOnly}> (abre en una pestaña nueva)</span><FaArrowUp className={styles.externalArrow} aria-hidden="true" /></a>
-                <Link className={styles.textLink} to="/contact">Preguntar por el acceso <FaArrowRight aria-hidden="true" /></Link>
+                <Link className={styles.primaryLink} to={product.href}>{product.buttonText}<FaArrowUp className={styles.externalArrow} aria-hidden="true" /></Link>
+                <Link className={styles.textLink} to={product.pilotHref} aria-label={`Solicitar participar en el piloto de ${product.name}`}>Solicitar participar en el piloto <FaArrowRight aria-hidden="true" /></Link>
               </div>
             </div>
           </article>
@@ -93,7 +95,7 @@ export const ProductsPage = () => (
         <div className={styles.faqIntro}>
           <p className={styles.eyebrow}>RESOLVEMOS TUS DUDAS</p>
           <h2 id="product-faq-title">Antes de elegir<br />tu plataforma</h2>
-          <p>Si necesitas información específica sobre SaaS Dental, puedes hablar directamente con nosotros.</p>
+          <p>Si necesitas información específica sobre SaaS Dental o Ksoft Travel, puedes hablar directamente con nosotros.</p>
           <Link className={styles.textLink} to="/contact">Hacer una consulta <FaArrowRight aria-hidden="true" /></Link>
         </div>
         <div className={styles.questions}>

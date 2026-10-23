@@ -1,0 +1,12 @@
+.section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; }
+.section header > p { color: #67e8f9; font-size: 11px; letter-spacing: .14em; line-height: 1.8; margin: 0 0 16px; }
+.section h2 { font-size: clamp(24px, 3vw, 34px); line-height: 1.35; letter-spacing: -.025em; margin: 0; }
+.section details { border: 1px solid var(--stroke); border-radius: 14px; background: rgba(15, 23, 42, .6); }
+.section details + details { margin-top: 14px; }
+.section summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; list-style: none; cursor: pointer; padding: 22px; font-size: 15px; line-height: 1.7; color: #e2e8f0; }
+.section summary::-webkit-details-marker { display: none; }
+.section summary svg { color: #67e8f9; flex-shrink: 0; font-size: 12px; }
+.section summary:focus-visible { outline: 2px solid #38bdf8; outline-offset: 3px; border-radius: 14px; }
+.section details[open] summary svg { transform: rotate(45deg); }
+.section details > p { margin: 0; padding: 0 22px 22px; color: #cbd5e1; font-size: 14px; line-height: 1.85; }
+@media (max-width: 760px) { .section { grid-template-columns: 1fr; gap: 28px; padding: 48px 20px; } }

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { FaCode, FaGlobe, FaLaptopCode, FaTooth, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaCode, FaGlobe, FaLaptopCode, FaArrowRight, FaCheck } from "react-icons/fa";
 import { AreasSection } from "../../Components/AreasSection/AreasSection";
 import { Footer } from "../../Components/Footer/Footer";
 import { HeroSection } from "../../Components/HeroSection/HeroSection";
 import { Navbar } from "../../Components/Navbar/Navbar";
-import { products } from "../../config/products";
 import styles from "./Landing.module.css";
+import { ProductsPreview } from "../Portfolio/Portfolio";
 
 const steps = [
   { title: "Entendemos tu necesidad", description: "Conversamos sobre tu negocio, tus objetivos y el problema que quieres resolver." },
@@ -22,7 +22,7 @@ export const Landing = () => (
     <main id="main-content" tabIndex={-1} className={styles.conatinerLading}>
       <HeroSection
         subTitile="Software a medida y productos SaaS para tu empresa"
-        descriptions="En Ksoft Technology desarrollamos sitios web, aplicaciones y sistemas adaptados a las necesidades de tu negocio. También creamos productos SaaS propios que puedes utilizar mediante suscripción."
+        descriptions="En Ksoft Technology desarrollamos sitios web, aplicaciones y sistemas adaptados a las necesidades de tu negocio. También creamos productos SaaS propios para sectores como turismo y salud dental."
       />
 
       <div className={styles.commitments} aria-label="Nuestra forma de trabajar">
@@ -32,29 +32,27 @@ export const Landing = () => (
       </div>
 
       <AreasSection areas={[
-        { title: "Software a medida", icon: <FaCode />, description: "Desarrollamos sistemas adaptados a los procesos y necesidades de tu empresa, con un alcance definido antes de comenzar." },
-        { title: "Sitios web", icon: <FaGlobe />, description: "Creamos sitios web para presentar tu negocio, comunicar tu oferta y facilitar el contacto con tus clientes." },
-        { title: "Aplicaciones", icon: <FaLaptopCode />, description: "Desarrollamos aplicaciones según los objetivos y requisitos de tu proyecto, con las funcionalidades acordadas contigo." },
+        {
+          title: "Software a medida", icon: <FaCode />,
+          description: "Para organizar la operación de tu empresa y reducir tareas manuales con un sistema adaptado a tu proceso.",
+          includes: ["Definición de procesos, usuarios y permisos.", "Módulos de gestión y reportes según tus requisitos.", "Integraciones con otros sistemas cuando formen parte del alcance."],
+          example: "Un panel para registrar clientes, consultar solicitudes y seguir el estado de cada trabajo.",
+        },
+        {
+          title: "Sitios web", icon: <FaGlobe />,
+          description: "Para presentar tu empresa, explicar lo que ofreces y facilitar que una persona interesada te contacte.",
+          includes: ["Diseño adaptable a móvil y escritorio.", "Páginas de servicios, empresa y contacto.", "Formularios y metadatos básicos para buscadores."],
+          example: "Una web corporativa con catálogo de servicios, portafolio y formulario de consultas.",
+        },
+        {
+          title: "Aplicaciones", icon: <FaLaptopCode />,
+          description: "Para que tus usuarios realicen una tarea concreta mediante una interfaz diseñada alrededor de su flujo de trabajo.",
+          includes: ["Definición de pantallas y recorridos de usuario.", "Funciones y acceso a datos según el alcance aprobado.", "Pruebas de los flujos acordados y revisión de entregas."],
+          example: "Una aplicación web donde un usuario inicia sesión, registra una solicitud y consulta su avance.",
+        },
       ]} />
 
-      <section className={styles.productsSection} aria-labelledby="products-title">
-        <div className={styles.productIntro}>
-          <p className={styles.eyebrow}>PRODUCTOS DE KSOFT</p>
-          <h2 id="products-title">También construimos<br />nuestros propios productos</h2>
-          <p>Además del desarrollo a medida, creamos plataformas SaaS para necesidades de sectores específicos. Su acceso se ofrece mediante suscripción o licencia, según las condiciones de cada producto.</p>
-          <Link className={styles.textLink} to="/products">Conocer nuestros productos <FaArrowRight aria-hidden="true" /></Link>
-        </div>
-        <article className={styles.productCard}>
-          <div className={styles.productTop}>
-            <span className={styles.productIcon}><FaTooth aria-hidden="true" /></span>
-            <span className={styles.badge}>Acceso anticipado</span>
-          </div>
-          <p className={styles.productCategory}>SOFTWARE PARA CLÍNICAS DENTALES</p>
-          <h3>{products[0].name}</h3>
-          <p>{products[0].description}</p>
-          <a className={styles.textLink} href={products[0].href} target="_blank" rel="noopener noreferrer">Explorar SaaS Dental <span className={styles.srOnly}>(abre en una pestaña nueva)</span><FaArrowRight aria-hidden="true" /></a>
-        </article>
-      </section>
+      <ProductsPreview />
 
       <section className={styles.processSection} aria-labelledby="process-title">
         <header className={styles.sectionHeader}>

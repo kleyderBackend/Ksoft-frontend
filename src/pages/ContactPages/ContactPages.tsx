@@ -1,10 +1,12 @@
 import { FaRegComments, FaRegFileAlt, FaArrowRight, FaRegClock } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar } from "../../Components/Navbar/Navbar";
 import { Footer } from "../../Components/Footer/Footer";
 import { ContactInfo } from "../../Components/ContactInfo/ContactInfo";
 import { ContactForm } from "../../Components/FormContact/FormContact";
 import styles from "./ContactPages.module.css";
+import { products } from "../../config/products";
+import { getContactIntent } from "../../utils/contactIntent";
 
 const steps = [
   { icon: FaRegComments, title: "Cuéntanos qué necesitas", description: "Comparte tu idea, el proceso que quieres mejorar o el producto SaaS que te interesa." },
@@ -12,7 +14,10 @@ const steps = [
   { icon: FaRegFileAlt, title: "Definimos el siguiente paso", description: "Para un proyecto a medida, conversamos sobre los requisitos. Para un producto, resolvemos tus dudas de acceso." },
 ];
 
-export const ContactPage = () => (
+export const ContactPage = () => {
+  const { search } = useLocation();
+  const { product, isPilot } = getContactIntent(search, products);
+  return (
   <>
     <Navbar title="Ksoft" imglogo="/img/logo.png" />
     <main id="main-content" tabIndex={-1} className={styles.page}>
@@ -20,11 +25,11 @@ export const ContactPage = () => (
         <div className={styles.contactCopy}>
           <header>
             <p className={styles.eyebrow}>CONTACTA CON KSOFT TECHNOLOGY</p>
-            <h1 id="contact-title">Tu próximo proyecto<br /><span>empieza aquí.</span></h1>
-            <p className={styles.lead}>Hablemos de lo que tu negocio necesita. Podemos ayudarte con un desarrollo a medida o resolver tus dudas sobre nuestros productos SaaS.</p>
+            <h1 id="contact-title">{isPilot ? <>Conoce el piloto de<br /><span>{product?.name}</span></> : <>Tu próximo proyecto<br /><span>empieza aquí.</span></>}</h1>
+            <p className={styles.lead}>{isPilot ? "Solicita participar y revisemos juntos si la solución se adapta a tu negocio. Te contactaremos para confirmar la disponibilidad y las condiciones." : "Hablemos de lo que tu negocio necesita. Podemos ayudarte con un desarrollo a medida o resolver tus dudas sobre nuestros productos SaaS."}</p>
           </header>
           <div className={styles.responseBadge}><FaRegClock aria-hidden="true" /><span>Respuesta estimada en hasta <strong>24 horas hábiles</strong></span></div>
-          <Link className={styles.formShortcut} to="/contact#contact-form">Escribir un mensaje <FaArrowRight aria-hidden="true" /></Link>
+          <Link className={styles.formShortcut} to={`/contact${search}#contact-form`}>{isPilot ? "Ir a la solicitud de piloto" : "Escribir un mensaje"} <FaArrowRight aria-hidden="true" /></Link>
           <ContactInfo />
         </div>
         <ContactForm />
@@ -54,4 +59,5 @@ export const ContactPage = () => (
     </main>
     <Footer />
   </>
-);
+  );
+};

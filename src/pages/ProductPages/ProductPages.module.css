@@ -42,6 +42,7 @@
 .productCard + .productCard { margin-top: 28px; }
 .productBrand { padding: 46px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(ellipse at top, rgba(56, 189, 248, 0.15), transparent 80%), #0b1428; border-right: 1px solid var(--stroke); }
 .productSymbol { display: grid; place-items: center; width: 82px; height: 82px; font-size: 40px; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(2, 6, 23, 0.4); margin-bottom: 32px; }
+.productSymbol img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
 .productBrand .eyebrow { font-size: 10px; margin-bottom: 12px; }
 .productBrand h3 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
 .productBrand > p:not(.eyebrow) { font-size: 12px; color: #94a3b8; margin: 16px 0 24px; line-height: 1.7; }

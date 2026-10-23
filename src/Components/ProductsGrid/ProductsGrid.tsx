@@ -8,6 +8,7 @@ interface Product {
   buttonText: string;
   href?: string;
   comingSoon?: boolean;
+  status?: string;
 }
 
 interface ProductsGridProps {
@@ -36,7 +37,7 @@ export const ProductsGrid = ({ products }: ProductsGridProps) => {
             <div className={styles.icon} aria-hidden="true">{product.icon}</div>
             <h2 className={styles.title}>{product.name}</h2>
             <p className={styles.desc}>{product.description}</p>
-            {product.comingSoon && <p className={styles.badge}>Acceso anticipado</p>}
+            {product.comingSoon && <p className={styles.badge}>{product.status ?? "Consulta disponibilidad"}</p>}
 
             <div className={styles.actions}>
               {/* Si es comingSoon, mostramos el botón de lista de espera o el badge */}

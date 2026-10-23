@@ -129,13 +129,33 @@
   line-height: 1.8;
 }
 
+.card h4 { margin: 16px 0 0; font-size: 13px; color: #e2e8f0; }
+.includes { margin: 0; padding-left: 18px; color: #cbd5e1; font-size: 14px; line-height: 1.8; }
+.includes li + li { margin-top: 8px; }
+.includes li::marker { color: #38bdf8; }
+.example { width: 100%; padding: 16px; margin-top: 12px; border: 1px solid rgba(56, 189, 248, 0.15); border-radius: 12px; background: rgba(2, 6, 23, 0.45); }
+.example > span { color: #67e8f9; font-size: 12px; font-weight: 600; }
+.example p { margin-top: 8px; }
+.scopeNote { max-width: 850px; margin: 24px auto 0; font-size: 13px; line-height: 1.8; color: #94a3b8; }
+.start { max-width: 1200px; margin: 48px auto 0; padding: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; text-align: left; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 20px; background: rgba(15, 23, 42, 0.65); }
+.start h3 { margin: 12px 0; font-size: 24px; letter-spacing: -0.02em; }
+.start p:not(.eyebrow) { color: #cbd5e1; font-size: 14px; line-height: 1.8; }
+.start a { display: inline-flex; gap: 12px; margin-top: 12px; color: #67e8f9; font-size: 14px; line-height: 1.8; text-underline-offset: 5px; }
+.startSteps { list-style: none; counter-reset: start; margin: 0; padding: 0; display: grid; gap: 24px; }
+.startSteps li { counter-increment: start; position: relative; padding-left: 44px; }
+.startSteps li::before { content: "0" counter(start); position: absolute; left: 0; top: 0; color: #67e8f9; font-size: 13px; line-height: 1.8; }
+.startSteps strong { display: block; font-size: 15px; line-height: 1.8; }
+.startSteps span { display: block; margin-top: 4px; color: #94a3b8; font-size: 14px; line-height: 1.8; }
+
 @media (max-width: 900px) {
+  .start { grid-template-columns: 1fr; gap: 28px; }
   .container {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 520px) {
+  .start { padding: 24px; }
   .container {
     grid-template-columns: 1fr;
   }

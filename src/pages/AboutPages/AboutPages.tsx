@@ -11,6 +11,12 @@ const values = [
   { title: "Confianza", icon: FaCheck, description: "Cuidamos la información que compartes y evaluamos contigo los cambios antes de ejecutarlos." },
 ];
 
+const workingAgreements = [
+  { title: "Primero, entender el negocio", description: "Conversamos sobre el proceso que quieres mejorar, quién utilizará la solución y qué resultado necesitas. Esa conversación permite priorizar lo que se va a construir." },
+  { title: "Avanzar con entregas revisables", description: "Acordamos las funcionalidades y revisamos contigo las entregas parciales. Puedes contrastar lo desarrollado con los requisitos antes de la entrega final." },
+  { title: "Decidir los cambios contigo", description: "Si surge una nueva necesidad, evaluamos su impacto en el alcance, el presupuesto y los tiempos antes de incorporarla al proyecto." },
+];
+
 export const AboutPages = () => (
   <>
     <Navbar title="Ksoft" imglogo="/img/logo.png" />
@@ -38,16 +44,50 @@ export const AboutPages = () => (
         </div>
       </section>
 
-      <section className={styles.story} aria-labelledby="story-title">
+      <section className={styles.story} id="fundador" aria-labelledby="story-title">
         <div>
-          <p className={styles.eyebrow}>LO QUE NOS MUEVE</p>
-          <h2 id="story-title">Una idea clara.<br />Dos formas de hacerla realidad.</h2>
+          <p className={styles.eyebrow}>DETRÁS DE KSOFT</p>
+          <h2 id="story-title">Kleyder Moreno Davila</h2>
+          <p className={styles.founderRole}>Fundador de Ksoft Technology</p>
         </div>
         <div className={styles.storyCopy}>
-          <p>Ksoft nace con una idea: construir soluciones digitales que respondan a necesidades concretas. Ese propósito guía tanto los proyectos que desarrollamos para nuestros clientes como los productos que creamos.</p>
-          <p>En un proyecto a medida, trabajamos sobre los requisitos de cada empresa. Con nuestros productos SaaS, abordamos necesidades de sectores específicos mediante plataformas propias, como SaaS Dental.</p>
-          <p>En ambos casos, buscamos que la tecnología tenga un propósito claro dentro del negocio.</p>
+          <p>Kleyder Moreno Davila es el fundador de Ksoft Technology, una iniciativa de desarrollo de software desde Medellín, Colombia. Su propósito con Ksoft es construir soluciones que respondan a necesidades concretas de negocio.</p>
+          <p>La empresa reúne el desarrollo a medida y la creación de productos propios. Esa visión se refleja en SaaS Dental, una plataforma de Ksoft orientada a la gestión de clínicas dentales y en preparación de piloto, a la espera de sus primeros usuarios.</p>
+          <p>Queremos que conozcas qué se va a construir, cómo se revisará el avance y cuáles serán las condiciones de entrega antes de comenzar.</p>
         </div>
+      </section>
+
+      <section className={styles.experienceSection} aria-labelledby="experience-title">
+        <div>
+          <p className={styles.eyebrow}>DEL DESARROLLO AL PRODUCTO</p>
+          <h2 id="experience-title">Conoce lo que estamos construyendo</h2>
+          <p>Los productos propios permiten ver el enfoque de Ksoft en una solución concreta. Puedes conocer el propósito de SaaS Dental y su estado de desarrollo en nuestro portafolio.</p>
+          <Link className={styles.textLink} to="/products/saas-dental">Conocer SaaS Dental <FaArrowRight aria-hidden="true" /></Link>
+        </div>
+        <div className={styles.experienceCard}>
+          <span className={styles.icon}><FaLayerGroup aria-hidden="true" /></span>
+          <p className={styles.cardLabel}>PRODUCTO PROPIO · PREPARACIÓN DE PILOTO</p>
+          <h3>SaaS Dental</h3>
+          <p>Software orientado a la gestión de clínicas dentales.</p>
+          <span className={styles.productOrigin}>Desarrollado por Ksoft Technology</span>
+        </div>
+      </section>
+
+      <section className={styles.workingSection} aria-labelledby="working-title">
+        <header className={styles.sectionHeader}>
+          <p className={styles.eyebrow}>NUESTRA FORMA DE TRABAJAR</p>
+          <h2 id="working-title">Una conversación que continúa durante el desarrollo</h2>
+          <p>Estos acuerdos guían el trabajo desde la primera consulta hasta la entrega del proyecto.</p>
+        </header>
+        <ol className={styles.workingGrid}>
+          {workingAgreements.map((agreement, index) => (
+            <li key={agreement.title}>
+              <span className={styles.workingNumber} aria-hidden="true">0{index + 1}</span>
+              <h3>{agreement.title}</h3>
+              <p>{agreement.description}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className={styles.businessSection} aria-labelledby="business-title">
@@ -68,7 +108,7 @@ export const AboutPages = () => (
             <span className={styles.icon}><FaLayerGroup aria-hidden="true" /></span>
             <p className={styles.cardLabel}>PLATAFORMAS CREADAS POR KSOFT</p>
             <h3>Productos SaaS propios</h3>
-            <p>Construimos productos para sectores específicos. Su acceso se ofrece mediante suscripción o licencia, según las condiciones de cada plataforma.</p>
+            <p>Construimos productos para sectores específicos: Ksoft Dental con planes de suscripción y Ksoft Travel con un modelo de comisión.</p>
             <Link className={styles.textLink} to="/products">Explorar nuestros productos <FaArrowRight aria-hidden="true" /></Link>
           </article>
         </div>

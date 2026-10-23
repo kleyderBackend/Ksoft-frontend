@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import "./App.css";
 import { Landing } from "./pages/Landing/Landing";
 import { AboutPages } from "./pages/AboutPages/AboutPages";
@@ -8,6 +8,13 @@ import { FAQ } from "./Components/FAQ/FAQ";
 import { Privacity } from "./Components/Privacity/Privacity";
 import { RouteEffects } from "./Components/RouteEffects/RouteEffects";
 import { NotFound } from "./pages/NotFound/NotFound";
+import { ProjectDetail } from "./pages/Portfolio/Portfolio";
+
+function LegacyProductRedirect() {
+  const { slug } = useParams();
+  const { search, hash } = useLocation();
+  return <Navigate replace to={`${slug ? `/products/${slug}` : "/products"}${search}${slug ? hash : hash ? "#catalogo" : ""}`} />;
+}
 
 function App() {
   return (
@@ -18,6 +25,9 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/about" element={<AboutPages />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/:slug" element={<ProjectDetail />} />
+        <Route path="/portfolio" element={<LegacyProductRedirect />} />
+        <Route path="/portfolio/:slug" element={<LegacyProductRedirect />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/privacity" element={<Privacity />} />

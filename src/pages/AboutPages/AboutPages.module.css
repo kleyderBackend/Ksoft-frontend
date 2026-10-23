@@ -4,7 +4,7 @@
     radial-gradient(ellipse 800px 600px at 0% 45%, rgba(34, 211, 238, 0.05), transparent 70%), #020617;
 }
 
-.hero, .story, .businessSection, .purposeSection, .valuesSection, .contactSection {
+.hero, .story, .experienceSection, .workingSection, .businessSection, .purposeSection, .valuesSection, .contactSection {
   max-width: 1200px;
   margin: 0 auto;
   padding: 70px 24px;
@@ -81,6 +81,19 @@
 .story h2, .sectionHeader h2, .purposeIntro h2, .contactSection h2 { margin: 0 0 20px; font-size: clamp(26px, 3vw, 36px); line-height: 1.35; letter-spacing: -0.03em; }
 .storyCopy p { margin: 0 0 18px; }
 .storyCopy p:last-child { margin-bottom: 0; }
+.founderRole { color: #67e8f9; font-size: 14px; line-height: 1.8; }
+.experienceSection { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+.experienceSection h2 { margin: 0 0 20px; font-size: clamp(26px, 3vw, 36px); line-height: 1.35; letter-spacing: -0.03em; }
+.experienceSection p:not(.eyebrow):not(.cardLabel), .workingGrid p { color: #94a3b8; font-size: 15px; line-height: 1.85; }
+.experienceSection .textLink { margin-top: 12px; }
+.experienceCard { padding: 32px; border: 1px solid rgba(56, 189, 248, 0.22); border-radius: 22px; background: radial-gradient(ellipse at top right, rgba(56, 189, 248, 0.13), transparent 65%), var(--panel); }
+.experienceCard h3 { margin: 0; font-size: 28px; }
+.productOrigin { display: block; padding-top: 18px; margin-top: 22px; border-top: 1px solid var(--stroke); color: #cbd5e1; font-size: 12px; line-height: 1.8; }
+.workingGrid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.workingGrid li { border-top: 1px solid rgba(56, 189, 248, 0.25); padding-top: 24px; }
+.workingNumber { color: #67e8f9; font-size: 13px; }
+.workingGrid h3 { margin: 18px 0 12px; font-size: 20px; line-height: 1.5; }
+.workingGrid p { margin: 0; }
 .sectionHeader { max-width: 680px; margin: 0 auto 40px; text-align: center; }
 .sectionHeader > p:last-child { margin-bottom: 0; }
 .businessGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
@@ -120,6 +133,7 @@
   .valuesGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
+  .experienceSection, .workingGrid { grid-template-columns: 1fr; gap: 28px; }
   .hero { grid-template-columns: 1fr; padding-top: 120px; }
   .heroCopy { max-width: 600px; }
   .identityCard { width: 100%; max-width: 520px; justify-self: center; }
@@ -127,7 +141,7 @@
   .businessGrid, .purposeGrid { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
-  .hero, .story, .businessSection, .purposeSection, .valuesSection, .contactSection { padding: 48px 20px; }
+  .hero, .story, .experienceSection, .workingSection, .businessSection, .purposeSection, .valuesSection, .contactSection { padding: 48px 20px; }
   .hero { padding-top: 120px; }
   .hero h1 { font-size: 34px; }
   .lead { font-size: 16px; }

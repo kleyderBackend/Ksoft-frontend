@@ -19,10 +19,10 @@
 .topicOption input:disabled + span { opacity: 0.65; cursor: not-allowed; }
 .field { display: flex; flex-direction: column; gap: 8px; }
 .field label { font-size: 13px; color: #cbd5e1; }
-.field input, .field textarea { width: 100%; min-width: 0; padding: 13px 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(2, 6, 23, 0.4); color: #f1f5f9; font-size: 14px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.field input, .field textarea, .field select { width: 100%; min-width: 0; padding: 13px 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(2, 6, 23, 0.4); color: #f1f5f9; font: inherit; font-size: 14px; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
 .field input::placeholder, .field textarea::placeholder { color: #8898ae; opacity: 1; }
-.field input:focus, .field textarea:focus { outline: none; border-color: rgba(56, 189, 248, 0.55); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12); }
-.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #f87171; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: rgba(56, 189, 248, 0.55); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12); }
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: #f87171; }
 .field textarea { min-height: 140px; resize: vertical; line-height: 1.7; }
 .notice { margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.8; }
 .notice a { color: #67e8f9; text-underline-offset: 3px; }

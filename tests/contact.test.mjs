@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { createServer } from 'node:http';
 import handler from '../api/contact.ts';
+import { products } from '../src/config/products.ts';
+import { createContactMessage } from '../src/utils/contactIntent.ts';
 
 const validBody = { name: '  Cliente de prueba  ', email: ' prueba@example.com ', message: ' Consulta de prueba ' };
 
@@ -47,6 +49,17 @@ test('accepts explicit acknowledgements used by Apps Script handlers', async (t)
     const mock = t.mock.method(globalThis, 'fetch', async () => new Response(text));
     assert.equal((await invoke()).status, 200);
     mock.mock.restore();
+  }
+});
+
+test('a minimal pilot enquiry reaches the delivery provider with its product', async (t) => {
+  const mock = t.mock.method(globalThis, 'fetch', async () => new Response('{"success":true}'));
+  for (const product of products) {
+    const message = createContactMessage({ topic: 'Producto SaaS', productName: product.name, isPilot: true, message: '' });
+    assert.equal((await invoke({ body: { ...validBody, message } })).status, 200);
+    const delivered = mock.mock.calls.at(-1).arguments[0].searchParams.get('message');
+    assert.equal(delivered, message);
+    assert.ok(delivered.includes(`Producto: ${product.name}`));
   }
 });
 
