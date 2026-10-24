@@ -15,18 +15,20 @@ El correo debe ser nuevo. Crear empleado no restablece contraseñas de cuentas e
 | QA | Consultar proyectos asignados sin modificar su avance; actualizar estados y notas de tareas asignadas; tickets y perfil. |
 | Empleado | Tickets y perfil. No accede a proyectos, contenido ni información comercial. |
 
-Desde Proyectos/Tareas → Asignar equipo de trabajo se seleccionan desarrolladores y QA. Para asignar una tarea, primero debe existir asignación al proyecto correspondiente.
+Desde Proyectos/Tareas → Asignar equipo de trabajo se seleccionan desarrolladores y QA. En proyectos de clientes e iniciativas internas, primero debe existir asignación al proyecto. En tareas de SaaS, administración puede seleccionar directamente desarrolladores o QA: al guardar la asignación también se incorporan al equipo del SaaS.
 
 ### Proyectos propios y desarrollo de SaaS
 
 En Proyectos → Gestión interna puedes crear un proyecto de Cliente, un SaaS propio o un Proyecto propio. Solo el primero solicita cliente y cotización. Los proyectos existentes sin tipo conservan su clasificación según tengan o no un cliente asociado.
 
-Para Dental, Travel u otro producto, abre Productos → Gestionar desarrollo. Si todavía no tiene proyecto de desarrollo, se prepara el formulario con su nombre y su ficha vinculada; si ya tiene proyectos, se muestran los vinculados a ese producto. También puedes crear un SaaS sin ficha comercial y vincularla más adelante.
+Dental y Travel, al igual que los demás productos registrados, aparecen directamente en el selector Proyecto / SaaS de las tareas. También puedes abrir Productos → Crear tarea para seleccionar el SaaS automáticamente. No es necesario volver a registrar el producto como proyecto. Si un producto nuevo aún no tiene espacio de trabajo, se vincula al guardar su primera tarea en la misma operación. Si ese espacio estaba en la papelera, se restaura conservando su identificador.
+
+Productos → Gestionar desarrollo permite consultar los proyectos vinculados. También puedes crear un SaaS sin ficha comercial y vincularla más adelante.
 
 1. Completa el alcance y las fechas del proyecto.
 2. Usa Guardar y asignar equipo para seleccionar desarrolladores o QA.
 3. En el proyecto, pulsa Crear tarea; el proyecto queda seleccionado.
-4. Completa la tarea y usa Guardar y asignar equipo para elegir responsables entre los integrantes del proyecto.
+4. Completa la tarea y usa Guardar y asignar equipo. Para un SaaS puedes elegir directamente desarrolladores o QA activos; al asignar se incorporan al proyecto. En proyectos de clientes e iniciativas internas, elige entre los integrantes ya asignados.
 
 Tareas permite filtrar por proyecto/SaaS y por tipo de proyecto. El campo de referencia del responsable es una nota; el acceso real depende de la asignación de cuentas. Los desarrolladores y QA reciben únicamente el trabajo asignado, tanto para clientes como para productos propios.
 

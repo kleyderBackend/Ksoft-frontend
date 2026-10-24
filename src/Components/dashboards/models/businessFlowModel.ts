@@ -1,6 +1,7 @@
 import type { AdminData } from "../adminModel";
 import type { BusinessRecord,ModuleKey } from "../businessModel";
 import { modules,quoteTotals } from "../businessModel.ts";
+import {productTaskTarget,taskTargets} from './taskTargets.ts';
 export function newBusinessRecord(data: AdminData,module: ModuleKey,search="",today=new Date().toLocaleDateString("en-CA")): BusinessRecord {
   const params=new URLSearchParams(search),now=new Date().toISOString();
   const values: Record<string,string>=Object.fromEntries(modules[module].fields.map(field=>[field.key,field.options?.[0]||(field.key==="date"?today:"")]));
@@ -8,10 +9,11 @@ export function newBusinessRecord(data: AdminData,module: ModuleKey,search="",to
     if(!field.relation) continue;
     const id=params.get(field.key);
     if(!id) continue;
-    const related=data.workspace.records[field.relation].find(record=>record.id===id);
+    const related=module==="tasks"&&field.key==="project"?taskTargets(data).find(record=>record.id===id):data.workspace.records[field.relation].find(record=>record.id===id);
     if(!related) throw new Error("El registro relacionado ya no existe. Revisa la relación antes de continuar.");
     values[field.key]=id;
   }
+  if(module==="tasks"&&params.get('productId'))values.project=productTaskTarget(data,params.get('productId')!);
   if(module==="projects"){
     values.progress="0";
     if(values.client||values.quote)values.type="Cliente";

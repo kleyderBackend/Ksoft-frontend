@@ -160,7 +160,7 @@ export const modules: Record<ModuleKey, ModuleDefinition> = {
       name("Nombre de la tarea"),
       {
         key: "project",
-        label: "Proyecto",
+        label: "Proyecto / SaaS",
         type: "select",
         relation: "projects",
       },

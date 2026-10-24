@@ -73,13 +73,22 @@ test('developer permissions are enforced by PostgreSQL, assignments are explicit
   await assert.rejects(rpc('ksoft_commit_workspace',[badOwn,ownRevision]),/INTERNAL_PROJECT_HAS_CLIENT/);
   const missingProduct=structuredClone(ownData);missingProduct.products=[];
   await assert.rejects(rpc('ksoft_commit_workspace',[missingProduct,ownRevision]),/INVALID_RELATION/);
-  await rpc('ksoft_assign_record',['projects','owned-project',[dev]]);await rpc('ksoft_assign_record',['tasks','owned-task',[dev]]);
+  await rpc('ksoft_assign_record',['tasks','owned-task',[dev]]);
+  assert.deepEqual(await rpc('ksoft_get_assignments',['projects','owned-project']),[dev]);
   await role(dev);const ownWork=await rpc('ksoft_read_staff_workspace');
   assert.equal(ownWork.document.workspace.records.projects.find(p=>p.id==='owned-project').values.type,'SaaS propio');
   assert.ok(ownWork.document.workspace.records.tasks.some(t=>t.id==='owned-task'));assert.deepEqual(ownWork.document.products,[]);
   const ownUpdate=structuredClone(ownWork.document);ownUpdate.workspace.records.tasks.find(t=>t.id==='owned-task').values.status='Completada';
   await rpc('ksoft_save_developer_workspace',[ownUpdate,ownWork.revision]);
 
+ // Provision existing products once, without duplicates, publishing or restoring archived work.
+  await db.exec('reset role');
+  await db.exec("insert into public.ksoft_records values('products','unlinked-saas',99,'{\"id\":\"unlinked-saas\",\"name\":\"Travel\"}')");
+  assert.equal(await rpc('ksoft_provision_product_projects'),1);
+  assert.equal(await rpc('ksoft_provision_product_projects'),0);
+  const provisioned=(await db.query("select payload from public.ksoft_records where module='projects' and payload->'values'->>'productId'='unlinked-saas'")).rows[0].payload;
+  assert.equal(provisioned.values.type,'SaaS propio');assert.equal(provisioned.values.client,'');
+  await role(dev);await assert.rejects(rpc('ksoft_provision_product_projects'),/permission denied/);
  // Team management and private ticket permissions use the real SQL entry points.
   await role(admin);
   await rpc('ksoft_manage_team',[other,'Control de calidad','qa',true]);

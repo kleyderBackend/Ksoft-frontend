@@ -59,9 +59,9 @@ El menú público no incluye accesos al dashboard. Su protección depende de la 
 | **QA** | Consulta sus proyectos y actualiza estados y notas de sus tareas asignadas; no modifica el avance del proyecto. |
 | **Empleado** | Perfil y tickets que crea o tiene asignados. |
 
-Todos los miembros activos pueden crear tickets para administración u otro integrante. Las tareas solo se asignan a personas que ya pertenezcan al equipo del proyecto. Las cuentas administradoras se autorizan mediante un procedimiento de configuración separado; el formulario de empleados no concede ese rol.
+Todos los miembros activos pueden crear tickets para administración u otro integrante. En proyectos de clientes e iniciativas internas, las tareas se asignan entre integrantes del proyecto. Al asignar una tarea de un SaaS, sus responsables también se incorporan al equipo del SaaS. Las cuentas administradoras se autorizan mediante un procedimiento de configuración separado; el formulario de empleados no concede ese rol.
 
-Para gestionar Dental o Travel: **Productos → Gestionar desarrollo → Guardar y asignar equipo → Crear tarea**. También se pueden crear SaaS sin ficha comercial y proyectos propios desde **Proyectos → Gestión interna**.
+Dental y Travel ya están disponibles en **Tareas → Proyecto / SaaS**. También puedes usar **Productos → Crear tarea**, guardar y asignar sus responsables directamente. También se pueden crear SaaS sin ficha comercial y proyectos propios desde **Proyectos → Gestión interna**.
 
 ## Arquitectura
 

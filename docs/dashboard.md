@@ -47,7 +47,7 @@ Las imágenes comerciales se alojan en el bucket público `ksoft-media`; no debe
 
 El flujo comercial enlaza solicitud → contacto → cliente → cotización → proyecto → tarea o archivo. Una cotización aceptada puede originar un proyecto, evitando duplicados activos o en la papelera.
 
-Los SaaS y proyectos propios no necesitan cliente ni cotización. Un SaaS puede vincularse a una ficha de Productos. Primero se asigna el equipo al proyecto; después se asignan sus tareas entre esos integrantes. Consulta el [procedimiento completo](equipo-y-tickets.md#proyectos-propios-y-desarrollo-de-saas).
+Los SaaS y proyectos propios no necesitan cliente ni cotización. Un SaaS puede vincularse a una ficha de Productos. Los productos registrados aparecen directamente en el selector de tareas. Al asignar una tarea de un SaaS, sus responsables se incorporan al equipo del proyecto; en proyectos para clientes e iniciativas internas se mantiene la asignación previa de equipo. Consulta el [procedimiento completo](equipo-y-tickets.md#proyectos-propios-y-desarrollo-de-saas).
 
 La presentación pública no se genera automáticamente desde notas o documentos internos.
 
