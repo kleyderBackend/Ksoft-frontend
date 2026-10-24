@@ -1,25 +1,34 @@
+.overview {
+  display: grid;
+  gap: 32px;
+  min-width: 0;
+}
+
 .header {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
 }
 
 .title {
   margin: 0;
   font-size: 32px;
   font-weight: 600;
+  line-height: 1.25;
 }
 
 .subtitle {
   margin: 0;
   color: #94a3b8;
   font-size: 16px;
+  line-height: 1.7;
+  max-width: 70ch;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
 .card {
@@ -97,6 +106,7 @@
 .panelSubtitle {
   margin: 0;
   color: #94a3b8;
+  line-height: 1.6;
 }
 
 .emptyState {
@@ -105,8 +115,9 @@
   padding: 28px;
   text-align: center;
   color: #94a3b8;
+  line-height: 1.7;
 }
-.eyebrow { color: #67e8f9; font-size: 11px; letter-spacing: .14em; margin: 0 0 12px; }
+.eyebrow { color: #67e8f9; font-size: 11px; letter-spacing: .14em; margin: 0; line-height: 1.5; }
 .statLink { text-decoration: none; }
 .statLink:hover { border-color: #38bdf8; }
 .cardTop { display: flex; align-items: start; gap: 12px; justify-content: space-between; color: #7dd3fc; }
@@ -132,4 +143,19 @@
 @media (min-width: 1500px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 1200px) { .overviewColumns { grid-template-columns: 1fr; } .shortcutBar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 1200px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .title { font-size: 27px; } .grid { gap: 12px; } .card { padding: 16px; } .cardLabel { font-size: 10px; letter-spacing: .06em; } .cardValue { font-size: 32px; } }
+@media (max-width: 600px) {
+  .overview { gap: 24px; }
+  .title { font-size: 27px; }
+  .grid { grid-template-columns: 1fr; gap: 16px; }
+  .card { padding: 24px; }
+  .cardLabel { font-size: 11px; letter-spacing: .08em; line-height: 1.5; }
+  .cardValue { font-size: 32px; }
+  .sectionPanel { padding: 24px; gap: 20px; }
+  .overviewColumns { gap: 24px; }
+  .financeStrip { padding: 24px; gap: 24px; }
+  .financeStrip div { min-width: 100%; }
+  .shortcutBar { grid-template-columns: 1fr; gap: 12px; }
+  .shortcutBar a { padding: 20px; font-size: 13px; }
+  .panelHeader { flex-wrap: wrap; }
+  .emptyState { padding: 24px 20px; }
+}

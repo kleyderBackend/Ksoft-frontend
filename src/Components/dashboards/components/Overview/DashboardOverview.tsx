@@ -69,7 +69,7 @@ export const DashboardOverview = () => {
     },
   ];
   return (
-    <>
+    <div className={styles.overview}>
       <header className={styles.header}>
         <p className={styles.eyebrow}>VISTA GENERAL · {today}</p>
         <h1 className={styles.title}>
@@ -211,6 +211,6 @@ export const DashboardOverview = () => {
             time: new Date(a.date).toLocaleString("es-CO"),
           }))}
       />
-    </>
+    </div>
   );
 };
