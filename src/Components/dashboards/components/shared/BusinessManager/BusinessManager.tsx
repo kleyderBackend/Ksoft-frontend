@@ -1,3 +1,5 @@
+import {PilotRequestFields} from "../../Requests/PilotRequestFields";
+import {pilotPurpose,pilotStatus,pilotStatuses,matchesPilotFilters,hasPilotTracking,resetsPilot,updatePilotRequest} from "../../../models/pilotRequests";
 import {taskTargets,prepareTaskWorkspace} from "../../../models/taskTargets";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
@@ -34,6 +36,8 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
   const [error, setError] = useState(initial.error);
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("");
+  const [requestProductFilter,setRequestProductFilter]=useState("");
+  const [pilotFilter,setPilotFilter]=useState("");
   const [typeFilter,setTypeFilter]=useState(()=>new URLSearchParams(search).get("type")||"");
   const [projectFilter,setProjectFilter]=useState(()=>new URLSearchParams(search).get("project")||"");
   const productFilter=new URLSearchParams(search).get("productId")||"";
@@ -57,15 +61,18 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
     if(module==="projects")next.values.type=projectType(next.values);
     setForm(next); setBaseline(JSON.stringify(next)); setError(""); setDetail(null);
   };
-  const change=(key:string,value:string)=>setForm(previous=>{
+  const change=(key:string,value:string)=>{
+    if(module==="requests"&&form&&resetsPilot(form.values,key,value)&&hasPilotTracking(form.values)&&!window.confirm("Cambiar el motivo o el producto eliminará los datos de seguimiento de este piloto del formulario. ¿Continuar?"))return;
+    setForm(previous=>{
     if(!previous)return previous;
-    const values={...previous.values,[key]:value};
+    const values=module==="requests"?updatePilotRequest(previous.values,key,value):{...previous.values,[key]:value};
     if(module==="projects"&&key==="type"){if(value!=="Cliente"){values.client="";values.quote="";}if(value!=="SaaS propio")values.productId="";}
     if(module==="projects"&&key==="productId"&&value&&!values.name)values.name=data.products.find(product=>product.id===value)?.name||"";
     if(key==="client"&&values.quote&&workspace.records.quotes.find(quote=>quote.id===values.quote)?.values.client!==value)values.quote="";
     if(key==="quote"&&value){const quote=workspace.records.quotes.find(record=>record.id===value);if(quote){values.client=quote.values.client;if(module==="payments"&&!values.amount)values.amount=String(Math.max(0,quoteTotals(workspace,value).unallocated));if(module==="projects"&&!values.scope)values.scope=quote.values.scope;}}
     return {...previous,values};
   });
+  };
   const submit = async (event: FormEvent) => {
     event.preventDefault(); if (!form || readingFile) return;
     let record = {...form, updatedAt: new Date().toISOString(), values: Object.fromEntries(Object.entries(form.values).map(([key,value]) => [key, value.trim()]))};
@@ -87,6 +94,7 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
   const labelValue = (record: BusinessRecord, key: string) => {
     const field = definition.fields.find(f => f.key === key);
     const value = record.values[key] || "";
+    if(module==="requests"&&field?.pilotOnly){if(record.values.purpose!==pilotPurpose)return "";if(key==="pilotStatus")return pilotStatus(record.values);}
     if(module==="projects"&&key==="type")return projectType(record.values);
     if(module==="projects"&&key==="productId")return data.products.find(product=>product.id===value)?.name||"Sin vincular";
     if (field?.relation) return workspace.records[field.relation].find(r => r.id === value)?.values.name || "Sin asignar";
@@ -94,7 +102,7 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
     if (key === "amount") return money(Number(value || 0));
     return value;
   };
-  const visible = records.filter(record => (!filter || record.values.status === filter) && (!(module==="projects"||module==="tasks")||!typeFilter||projectType(module==="projects"?record.values:workspace.records.projects.find(project=>project.id===record.values.project)?.values??{})===typeFilter) && (module!=="projects"||!productFilter||record.values.productId===productFilter) && (module!=="tasks"||!projectFilter||record.values.project===projectFilter) && definition.fields.map(field => labelValue(record, field.key)).join(" ").toLocaleLowerCase("es").includes(query.toLocaleLowerCase("es")));
+  const visible = records.filter(record => (module!=="requests"||matchesPilotFilters(record.values,requestProductFilter,pilotFilter)) && (!filter || record.values.status === filter) && (!(module==="projects"||module==="tasks")||!typeFilter||projectType(module==="projects"?record.values:workspace.records.projects.find(project=>project.id===record.values.project)?.values??{})===typeFilter) && (module!=="projects"||!productFilter||record.values.productId===productFilter) && (module!=="tasks"||!projectFilter||record.values.project===projectFilter) && definition.fields.map(field => labelValue(record, field.key)).join(" ").toLocaleLowerCase("es").includes(query.toLocaleLowerCase("es")));
   const exportCsv = () => {
     const rows = [definition.fields.map(field => field.label), ...visible.map(record => definition.fields.map(field => labelValue(record, field.key)))];
     const url = URL.createObjectURL(new Blob(["\uFEFF" + rows.map(row => row.map(csvCell).join(";")).join("\r\n")], {type: "text/csv;charset=utf-8"}));
@@ -121,7 +129,7 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
     <div className={styles.container}>
       {module==="projects"&&productFilter&&<p className={styles.count}>Desarrollo de <strong>{data.products.find(product=>product.id===productFilter)?.name||"producto no disponible"}</strong> · <Link to="/dashboard/projects">Ver todos los proyectos</Link></p>}
       <div className={styles.toolbar}><label className={styles.search}>Buscar en {definition.title.toLowerCase()}<input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Nombre, cliente o información…" /></label>
-        {(module==="projects"||module==="tasks")&&<label className={styles.field}>Tipo de proyecto<select value={typeFilter} onChange={event=>setTypeFilter(event.target.value)}><option value="">Todos los tipos</option>{projectTypes.map(type=><option key={type}>{type}</option>)}</select></label>}{module==="tasks"&&<label className={styles.field}>Proyecto / SaaS<select value={projectFilter} onChange={event=>setProjectFilter(event.target.value)}><option value="">Todos los proyectos</option>{targets.map(target=><option key={target.id} value={target.id}>{target.name} · {target.type}</option>)}</select></label>}{statusField && <label className={styles.field}>Filtrar por estado<select value={filter} onChange={e => setFilter(e.target.value)}><option value="">Todos los estados</option>{statusField.options?.map(option => <option key={option}>{option}</option>)}</select></label>}
+        {(module==="projects"||module==="tasks")&&<label className={styles.field}>Tipo de proyecto<select value={typeFilter} onChange={event=>setTypeFilter(event.target.value)}><option value="">Todos los tipos</option>{projectTypes.map(type=><option key={type}>{type}</option>)}</select></label>}{module==="tasks"&&<label className={styles.field}>Proyecto / SaaS<select value={projectFilter} onChange={event=>setProjectFilter(event.target.value)}><option value="">Todos los proyectos</option>{targets.map(target=><option key={target.id} value={target.id}>{target.name} · {target.type}</option>)}</select></label>}{module==="requests"&&<><label className={styles.field}>Producto<select value={requestProductFilter} onChange={event=>setRequestProductFilter(event.target.value)}><option value="">Todos los productos</option>{Array.from(new Set([...data.products.map(product=>product.slug),...records.map(record=>record.values.product).filter(Boolean)])).map(slug=><option key={slug} value={slug}>{data.products.find(product=>product.slug===slug)?.name||"Producto archivado: "+slug}</option>)}</select></label><label className={styles.field}>Estado del piloto<select value={pilotFilter} onChange={event=>setPilotFilter(event.target.value)}><option value="">Todas las solicitudes</option><option value="all">Todos los pilotos</option>{pilotStatuses.map(status=><option key={status}>{status}</option>)}</select></label></>}{statusField && <label className={styles.field}>{module==="requests"?"Estado de la solicitud":"Filtrar por estado"}<select value={filter} onChange={e => setFilter(e.target.value)}><option value="">Todos los estados</option>{statusField.options?.map(option => <option key={option}>{option}</option>)}</select></label>}
         <button onClick={exportCsv}>Exportar CSV</button><button className={styles.primary} onClick={() => open()}>+ Crear {definition.singular}</button>
       </div>
       {error && <p ref={errorRef} tabIndex={-1} role="alert" className={styles.error}>{error}</p>}
@@ -129,7 +137,7 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
       {form && <form ref={formRef} className={styles.panel} onSubmit={submit}>
         <div className={styles.heading}><h2>{records.some(r => r.id === form.id) ? "Editar " : "Crear "}{definition.singular}</h2><button type="button" onClick={() => {if (discard()) {setForm(null); setError("");}}}>Cancelar</button></div>
         <div className={styles.formGrid}>
-          {definition.fields.filter(field=>module!=="projects"||(["client","quote"].includes(field.key)?projectType(form.values)==="Cliente":field.key!=="productId"||projectType(form.values)==="SaaS propio")).map(field => <label className={styles.field} key={field.key}>{field.label}{(field.required || module==="projects"&&["type","client"].includes(field.key) || module==="requests"&&field.key==="product"&&form.values.purpose==="Participación en piloto") ? " *" : ""}
+          {definition.fields.filter(field=>!field.pilotOnly&&(module!=="projects"||(["client","quote"].includes(field.key)?projectType(form.values)==="Cliente":field.key!=="productId"||projectType(form.values)==="SaaS propio"))).map(field => <label className={styles.field} key={field.key}>{field.label}{(field.required || module==="projects"&&["type","client"].includes(field.key) || module==="requests"&&field.key==="product"&&form.values.purpose==="Participación en piloto") ? " *" : ""}
             {field.type === "select" ? <select required={field.required || module==="projects"&&["type","client"].includes(field.key) || module==="requests"&&field.key==="product"&&form.values.purpose==="Participación en piloto"} value={form.values[field.key] || ""} onChange={e => change(field.key, e.target.value)}>
               <option value="">{field.relation ? "Sin asignar" : "Seleccionar"}</option>
               {module==="tasks"&&field.key==="project"?targets.map(target=><option key={target.id} value={target.id}>{target.name} · {target.type}</option>):module==="projects"&&field.key==="productId"?data.products.map(product=><option key={product.id} value={product.id}>{product.name}</option>):module==="requests"&&field.key==="product"?<>{form.values.product&&!data.products.some(product=>product.slug===form.values.product)&&<option value={form.values.product}>Producto archivado: {form.values.product}</option>}{data.products.map(product=><option key={product.slug} value={product.slug}>{product.name}</option>)}</>:field.relation ? workspace.records[field.relation].filter(r => module !== "payments" || field.key !== "quote" || !form.values.client || r.values.client === form.values.client).map(record => <option key={record.id} value={record.id}>{record.values.name}{field.relation==="projects"?" · "+projectType(record.values):""}</option>) : field.options?.map(option => <option key={option}>{option}</option>)}
@@ -137,21 +145,21 @@ function BusinessManagerContent({module,search}: {module: ModuleKey; search: str
             {module==="tasks"&&field.key==="owner"&&<small>Esta referencia no concede acceso. Guarda y usa Asignar equipo de trabajo para seleccionar las cuentas responsables.</small>}{module==="projects"&&field.key==="productId"&&<small>Vincula el desarrollo con una ficha de Productos. Puedes dejarlo vacío si el SaaS aún no tiene ficha comercial.</small>}{module==="tasks"&&field.key==="project"&&<small>Los SaaS de Productos ya están disponibles aquí. Su espacio de trabajo se vincula automáticamente al guardar la tarea.</small>}{field.relation && !workspace.records[field.relation].length && !(module==="tasks"&&field.key==="project"&&targets.length) && <small>Primero crea un registro en <Link to={"/dashboard/" + field.relation}>{modules[field.relation].title}</Link>.</small>}
           </label>)}
         </div>
-        {module === "files" && <label className={styles.field}>Archivo (hasta 500 KB)<input type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.csv,.docx,.xlsx" disabled={readingFile} onChange={e => void fileSelected(e.target.files?.[0])} /><small>{form.values.filename || "Selecciona un documento o imagen."} · {cloud?"Se guarda de forma privada en tu espacio de Ksoft.":"Se guarda en este navegador."}</small></label>}
+        {module==="requests"&&form.values.purpose===pilotPurpose&&<PilotRequestFields values={form.values} onChange={change}/>}{module === "files" && <label className={styles.field}>Archivo (hasta 500 KB)<input type="file" accept=".pdf,.png,.jpg,.jpeg,.webp,.txt,.csv,.docx,.xlsx" disabled={readingFile} onChange={e => void fileSelected(e.target.files?.[0])} /><small>{form.values.filename || "Selecciona un documento o imagen."} · {cloud?"Se guarda de forma privada en tu espacio de Ksoft.":"Se guarda en este navegador."}</small></label>}
         <div className={styles.actions}>{cloud&&(module==="projects"||module==="tasks")&&<button type="submit" value="assign" className={styles.primary}>Guardar y asignar equipo</button>}<button type="submit" disabled={readingFile} className={styles.primary}>{readingFile ? "Leyendo archivo…" : "Guardar " + definition.singular}</button><small>Los campos con * son obligatorios.</small></div>
       </form>}
       {detail && <article ref={detailRef} tabIndex={-1} className={styles.panel + " " + styles.printable}>
         <div className={styles.heading + " " + styles.noPrint}><h2>Detalle de {definition.singular}</h2><div className={styles.actions}>{module === "quotes" && <button onClick={() => window.print()}>Imprimir / PDF</button>}<button onClick={() => setDetail(null)}>Cerrar detalle</button></div></div>
         {module === "quotes" && <p className={styles.eyebrow}>{workspace.settings.company} · {workspace.settings.email}</p>}
         <h2>{detail.values.name}</h2>
-        <dl className={styles.facts}>{definition.fields.filter(field => detail.values[field.key] && field.key !== "name").map(field => <div key={field.key}><dt>{field.label}</dt><dd>{field.relation&&detail.values[field.key]?<Link to={"/dashboard/"+field.relation+"?record="+encodeURIComponent(detail.values[field.key])}>{labelValue(detail,field.key)}</Link>:labelValue(detail,field.key)}</dd></div>)}</dl>
+        <dl className={styles.facts}>{definition.fields.filter(field => (!field.pilotOnly||detail.values.purpose===pilotPurpose)&&(detail.values[field.key]||field.key==="pilotStatus"&&detail.values.purpose===pilotPurpose)&&field.key!=="name").map(field => <div key={field.key}><dt>{field.label}</dt><dd>{field.relation&&detail.values[field.key]?<Link to={"/dashboard/"+field.relation+"?record="+encodeURIComponent(detail.values[field.key])}>{labelValue(detail,field.key)}</Link>:labelValue(detail,field.key)}</dd></div>)}</dl>
         {module==="quotes"&&<dl className={styles.facts}><div><dt>Pagos recibidos</dt><dd>{money(quoteTotals(workspace,detail.id).paid)}</dd></div><div><dt>Cobros pendientes</dt><dd>{money(quoteTotals(workspace,detail.id).pending)}</dd></div><div><dt>Saldo por recibir</dt><dd>{money(quoteTotals(workspace,detail.id).balance)}</dd></div><div><dt>Sin programar</dt><dd>{money(quoteTotals(workspace,detail.id).unallocated)}</dd></div></dl>}
         {related.length > 0 && <section className={styles.noPrint}><h3>Registros relacionados</h3><ul>{related.map(({module: key, record}) => <li key={key + record.id}><Link to={"/dashboard/"+key+"?record="+encodeURIComponent(record.id)}>{modules[key].title}: {record.values.name}</Link></li>)}</ul></section>}
       </article>}
       <p className={styles.count}>{visible.length} de {records.length} registros</p>
       {visible.length ? <div className={styles.list}>{visible.map(record => <article key={record.id} className={styles.row}><div>
-        {module==="projects"&&<span className={styles.badge}>{projectType(record.values)}</span>}{record.values.status && <span className={styles.badge}>{record.values.status}</span>}
-        <h2>{record.values.name}</h2><p>{definition.fields.filter(field => !["name","status","notes","scope","description","resolution","terms","progress"].includes(field.key) && record.values[field.key]).slice(0,3).map(field => labelValue(record,field.key)).join(" · ")}</p>
+        {module==="projects"&&<span className={styles.badge}>{projectType(record.values)}</span>}{module==="requests"&&record.values.purpose===pilotPurpose&&<span className={styles.badge}>Piloto: {pilotStatus(record.values)}</span>}{record.values.status && <span className={styles.badge}>{record.values.status}</span>}
+        <h2>{record.values.name}</h2>{module==="requests"&&record.values.purpose===pilotPurpose&&<p>{labelValue(record,"product")} · {record.values.participantType||"Tipo de participante pendiente"}</p>}<p>{definition.fields.filter(field => !["name","status","notes","scope","description","resolution","terms","progress","pilotTerms","pilotNotes","linkedAccountId"].includes(field.key) && record.values[field.key]).slice(0,3).map(field => labelValue(record,field.key)).join(" · ")}</p>
         {module === "projects" && (record.values.progress?<label className={styles.progressLabel}>Avance: {record.values.progress}%<progress max="100" value={Number(record.values.progress)} /></label>:<p className={styles.count}>Avance sin definir</p>)}
       </div><div className={styles.actions}>
         <button onClick={() => setDetail(record)}>Ver detalle</button><button onClick={() => open(record)}>Editar</button>

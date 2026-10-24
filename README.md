@@ -40,7 +40,7 @@ Las fichas describen la disponibilidad de cada producto. La web corporativa y su
 | Área | Funcionalidades |
 | --- | --- |
 | Contenido | Publicaciones, productos y casos públicos con edición, vistas previas, borradores y publicación. |
-| Gestión comercial | Solicitudes, contactos, clientes y cotizaciones con relaciones entre registros. |
+| Gestión comercial | Solicitudes, contactos, clientes y cotizaciones; seguimiento de pilotos dentro de Solicitudes, con campos condicionales y filtros. |
 | Operación | Proyectos, tareas, archivos y seguimiento de soporte a clientes. |
 | Proyectos propios | Desarrollo de SaaS vinculados al catálogo e iniciativas internas sin cliente ni cotización. |
 | Finanzas | Registro de pagos y gastos, reportes y exportación CSV. |

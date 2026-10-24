@@ -1,3 +1,4 @@
+import {pilotFields,pilotPurpose} from "./pilotRequests.ts";
 import type { AdminData } from "../adminModel";
 import type { BusinessRecord,ModuleKey } from "../businessModel";
 import { modules,quoteTotals } from "../businessModel.ts";
@@ -13,6 +14,7 @@ export function newBusinessRecord(data: AdminData,module: ModuleKey,search="",to
     if(!related) throw new Error("El registro relacionado ya no existe. Revisa la relación antes de continuar.");
     values[field.key]=id;
   }
+  if(module==="requests"){for(const field of pilotFields)values[field.key]="";if(values.purpose===pilotPurpose)values.pilotStatus="Solicitado";}
   if(module==="tasks"&&params.get('productId'))values.project=productTaskTarget(data,params.get('productId')!);
   if(module==="projects"){
     values.progress="";

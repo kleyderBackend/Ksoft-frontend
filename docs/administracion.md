@@ -14,6 +14,22 @@ Los accesos solicitados están en `credenciales-ksoft.local`. Ese archivo está 
 
 Los productos aparecen en `/products` y tienen detalle propio. Las publicaciones aparecen en el inicio y en `/novedades`, con páginas en `/novedades/:slug`. Las nuevas publicaciones no necesitan un nuevo despliegue de código: la web lee el contenido publicado en Supabase.
 
+## Seguimiento de pilotos en Solicitudes
+
+No hay un módulo separado de Pilotos. Al crear o editar una solicitud con motivo **Participación en piloto**, aparece el bloque **Seguimiento del piloto**. Se reutilizan nombre, empresa, correo, teléfono y producto.
+
+- Travel admite Hotel, Guía y Otro; no incluye Viajero.
+- Dental admite Consultorio, Clínica dental, Odontólogo y Otro. Los demás productos admiten Empresa, Persona y Otro.
+- El estado del piloto es Solicitado, Invitado, Activo, Pausado o Finalizado. Es independiente del estado de la solicitud: Nueva, En seguimiento, Atendida o Descartada.
+- Se registran fecha de inicio, condiciones acordadas, observaciones e identificador opcional de la cuenta en el producto.
+- Para avanzar desde Solicitado se necesita un tipo de participante. Activo, Pausado y Finalizado requieren fecha de inicio.
+
+Las solicitudes públicas de piloto y los registros anteriores sin seguimiento se consideran Solicitado. Los filtros permiten combinar producto, estado de la solicitud y estado del piloto; Todos los pilotos excluye cotizaciones y consultas generales. Los datos de seguimiento forman parte del detalle, el CSV y los respaldos del espacio.
+
+Cambiar el producto o dejar de seleccionar Participación en piloto pide confirmación cuando hay seguimiento registrado y limpia únicamente esos campos del formulario; el contacto y los demás datos de la solicitud se conservan. El cambio se aplica al guardar.
+
+El identificador de cuenta es una referencia: no crea usuarios en Travel o Dental, no envía invitaciones y no conecta automáticamente sus reportes de errores.
+
 ## Asignar trabajo
 
 1. Crea o guarda un proyecto en Proyectos → Gestión interna.

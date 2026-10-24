@@ -17,3 +17,5 @@
 }
 .eyebrow { color: #67e8f9; font-size: 11px; letter-spacing: .14em; margin: 0 0 12px; }
 @media (max-width: 600px) { .title { font-size: 27px; } }
+
+.page {display:grid;gap:28px;min-width:0}.subtitle {line-height:1.7;max-width:75ch}

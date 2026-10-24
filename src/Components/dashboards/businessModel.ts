@@ -1,3 +1,4 @@
+import {pilotFields,validatePilotRequest} from './models/pilotRequests.ts';
 export type ModuleKey =
   | "payments"
   | "expenses"
@@ -31,6 +32,7 @@ export interface Field {
   required?: boolean;
   options?: string[];
   relation?: ModuleKey;
+  pilotOnly?: boolean;
 }
 export interface ModuleDefinition {
   title: string;
@@ -63,8 +65,8 @@ const due: Field = { key: "due", label: "Fecha límite", type: "date" };
 export const modules: Record<ModuleKey, ModuleDefinition> = {
   requests: {
     title: "Solicitudes", singular: "solicitud",
-    intro: "Registra y sigue consultas y solicitudes de piloto. La recepción automática desde la web todavía no está conectada.",
-    fields: [name("Nombre de quien solicita"), {key:"email",label:"Correo electrónico",type:"email",required:true}, {key:"company",label:"Empresa"}, {key:"phone",label:"Teléfono",type:"tel"}, {key:"purpose",label:"Motivo",type:"select",options:["Participación en piloto","Cotización","Consulta general"],required:true}, {key:"product",label:"Producto de interés",type:"select"}, {key:"date",label:"Fecha de recepción",type:"date",required:true}, state(["Nueva","En seguimiento","Atendida","Descartada"]), {key:"message",label:"Mensaje",type:"textarea"}, {key:"contact",label:"Contacto asociado",type:"select",relation:"contacts"}, notes],
+    intro: "Gestiona consultas y solicitudes recibidas desde la web, con seguimiento del piloto cuando corresponda.",
+    fields: [name("Nombre de quien solicita"), {key:"email",label:"Correo electrónico",type:"email",required:true}, {key:"company",label:"Empresa"}, {key:"phone",label:"Teléfono",type:"tel"}, {key:"purpose",label:"Motivo",type:"select",options:["Participación en piloto","Cotización","Consulta general"],required:true}, {key:"product",label:"Producto de interés",type:"select"}, {key:"date",label:"Fecha de recepción",type:"date",required:true}, {...state(["Nueva","En seguimiento","Atendida","Descartada"]),label:"Estado de la solicitud"},...pilotFields, {key:"message",label:"Mensaje",type:"textarea"}, {key:"contact",label:"Contacto asociado",type:"select",relation:"contacts"}, notes],
   },
   payments: {
     title: "Pagos",
@@ -323,6 +325,7 @@ export function validateRecord(
   strictBusinessRules = true,
 ) {
   for (const field of modules[module].fields) {
+    if(field.pilotOnly&&values.purpose!=="Participación en piloto")continue;
     const value = values[field.key]?.trim() ?? "";
     if (field.required && !value)
       return "Completa " + field.label.toLowerCase() + ".";
@@ -410,7 +413,7 @@ export function validateRecord(
   }
   if (module === "quotes" && workspace.records.payments.some(payment => payment.values.quote === id && payment.values.client !== values.client)) return "Esta cotización tiene pagos asociados a otro cliente. Revisa esos pagos antes de cambiar el cliente.";
   if(module==="quotes"&&workspace.records.projects.some(project=>project.values.quote===id&&project.values.client!==values.client)) return "Esta cotización tiene un proyecto asociado a otro cliente. Revisa el proyecto antes de cambiar el cliente.";
-  if(module==="requests"&&values.purpose==="Participación en piloto"&&!values.product) return "Selecciona el producto del piloto solicitado.";
+  if(module==="requests"){const pilotError=validatePilotRequest(values);if(pilotError)return pilotError;}
   return "";
 }
 export function referencedBy(

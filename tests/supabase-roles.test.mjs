@@ -126,5 +126,15 @@ test('developer permissions are enforced by PostgreSQL, assignments are explicit
   await role(admin);await rpc('ksoft_manage_team',[other,'Colaborador','employee',false]);
   await role(other);assert.equal(await rpc('ksoft_get_access'),null);
   await assert.rejects(rpc('ksoft_ticket_list'),/FORBIDDEN/);
+
+  await role(admin);const pilotView=await rpc('ksoft_read_workspace');const pilotData=pilotView.document;
+  pilotData.workspace.records.requests=[record('pilot',{name:'Hotel piloto',email:'hotel@example.test',purpose:'Participación en piloto',product:'ksoft-travel',date:'2026-10-24',status:'Atendida',participantType:'Hotel',pilotStatus:'Activo',pilotStart:'2026-10-24',linkedAccountId:'hotel-1',pilotTerms:'Condiciones acordadas',pilotNotes:'Seguimiento'}),record('legacy-pilot',{name:'Solicitud web',email:'pilot@example.test',purpose:'Participación en piloto',product:'ksoft-travel',date:'2026-10-24',status:'Nueva'})];
+  const pilotRevision=await rpc('ksoft_commit_workspace',[pilotData,pilotView.revision]);
+  for(const [fields,pattern] of [[{participantType:'Viajero'},/INVALID_PILOT_PARTICIPANT/],[{pilotStatus:'Otro'},/INVALID_PILOT_STATUS/],[{pilotStart:''},/PILOT_START_REQUIRED/],[{pilotStart:'2026-02-31'},/INVALID_PILOT_DATE/],[{purpose:'Consulta general'},/PILOT_FIELDS_WITHOUT_PILOT/]]){
+   const invalid=structuredClone(pilotData);Object.assign(invalid.workspace.records.requests[0].values,fields);await assert.rejects(rpc('ksoft_commit_workspace',[invalid,pilotRevision]),pattern);
+  }
+  assert.equal((await rpc('ksoft_read_workspace')).revision,pilotRevision);
+  await role(dev);assert.deepEqual((await rpc('ksoft_read_staff_workspace')).document.workspace.records.requests,[]);
+
  }finally{await db.close();}
 });
