@@ -1,5 +1,13 @@
-import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import "./App.css";
+import { cloudEnabled } from "./lib/supabase";
+import { lazy,Suspense } from "react";
 import { Landing } from "./pages/Landing/Landing";
 import { AboutPages } from "./pages/AboutPages/AboutPages";
 import { ProductsPage } from "./pages/ProductPages/ProductPages";
@@ -9,17 +17,26 @@ import { Privacity } from "./Components/Privacity/Privacity";
 import { RouteEffects } from "./Components/RouteEffects/RouteEffects";
 import { NotFound } from "./pages/NotFound/NotFound";
 import { ProjectDetail } from "./pages/Portfolio/Portfolio";
+import {Novedades,NovedadDetalle} from "./pages/Novedades/Novedades";
+const DashboardRouter=lazy(()=>import("./pages/Dashboards/DashboardRouter"));
 
 function LegacyProductRedirect() {
   const { slug } = useParams();
   const { search, hash } = useLocation();
-  return <Navigate replace to={`${slug ? `/products/${slug}` : "/products"}${search}${slug ? hash : hash ? "#catalogo" : ""}`} />;
+  return (
+    <Navigate
+      replace
+      to={`${slug ? `/products/${slug}` : "/products"}${search}${slug ? hash : hash ? "#catalogo" : ""}`}
+    />
+  );
 }
 
 function App() {
   return (
     <>
-      <a className="skipLink" href="#main-content">Saltar al contenido</a>
+      <a className="skipLink" href="#main-content">
+        Saltar al contenido
+      </a>
       <RouteEffects />
       <Routes>
         <Route path="/" element={<Landing />} />
@@ -29,9 +46,12 @@ function App() {
         <Route path="/portfolio" element={<LegacyProductRedirect />} />
         <Route path="/portfolio/:slug" element={<LegacyProductRedirect />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/novedades" element={<Novedades/>}/>
+        <Route path="/novedades/:slug" element={<NovedadDetalle/>}/>
         <Route path="/faq" element={<FAQ />} />
         <Route path="/privacity" element={<Privacity />} />
         <Route path="*" element={<NotFound />} />
+        {(import.meta.env.DEV || cloudEnabled) && <Route path="/dashboard/*" element={<Suspense fallback={<main id="main-content" style={{padding:"4rem"}}><p role="status">Cargando administración…</p></main>}><DashboardRouter/></Suspense>}/>}
       </Routes>
     </>
   );

@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { FaArrowRight, FaArrowUp, FaTooth, FaLayerGroup, FaRegCompass, FaRegComments, FaCheckCircle, FaPlus } from "react-icons/fa";
+import { FaArrowRight, FaTooth, FaLayerGroup, FaRegCompass, FaRegComments, FaCheckCircle, FaPlus } from "react-icons/fa";
 import { Navbar } from "../../Components/Navbar/Navbar";
 import { Footer } from "../../Components/Footer/Footer";
-import { products } from "../../config/products";
+import { ProductCatalogCard } from "../../Components/ProductCatalogCard/ProductCatalogCard";
+import { usePublicSite } from "../../content/publicSiteContext";
 import styles from "./ProductPages.module.css";
 
 const steps = [
@@ -18,7 +19,9 @@ const questions = [
   { question: "¿Puedo solicitar una solución a medida?", answer: "Sí. Además de nuestros productos propios, desarrollamos software, sitios web y aplicaciones a medida. Cuéntanos tus requisitos para evaluar un proyecto con un alcance específico para tu empresa." },
 ];
 
-export const ProductsPage = () => (
+export const ProductsPage = () => {
+  const {products,loading,error}=usePublicSite();
+  return (
   <>
     <Navbar title="Ksoft" imglogo="/img/logo.png" />
     <main id="main-content" tabIndex={-1} className={styles.page}>
@@ -33,13 +36,13 @@ export const ProductsPage = () => (
             <Link className={styles.textLink} to="/contact">Consultar con Ksoft <FaArrowRight aria-hidden="true" /></Link>
           </div>
         </div>
-        <div className={styles.productVisual}>
+        {products[0]&&<div className={styles.productVisual}>
           <div className={styles.visualTop}><span><FaLayerGroup aria-hidden="true" />PRODUCTO PROPIO</span><span className={styles.status}><i aria-hidden="true" />{products[0].status}</span></div>
           <div className={styles.toothStage} aria-hidden="true"><div className={styles.orbit} /><div className={styles.toothIcon}><FaTooth /></div></div>
           <p className={styles.visualName}>{products[0].name}</p>
           <p className={styles.visualCaption}>Software para clínicas dentales</p>
           <div className={styles.visualBottom}><span>Ksoft Technology</span><span>Soluciones por sector</span></div>
-        </div>
+        </div>}
       </section>
 
       <section className={styles.catalog} id="catalogo" aria-labelledby="catalog-title">
@@ -47,31 +50,9 @@ export const ProductsPage = () => (
           <div><p className={styles.eyebrow}>EXPLORA NUESTRAS PLATAFORMAS</p><h2 id="catalog-title">Conoce nuestros productos</h2></div>
           <p>Un enfoque específico para cada sector, con las condiciones de acceso definidas para cada producto.</p>
         </header>
+        {loading&&<p role="status">Cargando productos…</p>}{error&&<p role="alert">{error}</p>}{!loading&&!error&&!products.length&&<p>Próximamente compartiremos nuestros productos.</p>}
         {products.map((product) => (
-          <article className={styles.productCard} key={product.name}>
-            <div className={styles.productBrand}>
-              <span className={styles.productSymbol} aria-hidden="true">{product.logo ? <img src={product.logo} alt="" width="82" height="82" /> : product.icon}</span>
-              <p className={styles.eyebrow}>{product.sector}</p>
-              <h3>{product.name}</h3>
-              <p>Un producto de Ksoft Technology</p>
-              <span className={styles.status}><i aria-hidden="true" />{product.status}</span>
-            </div>
-            <div className={styles.productInfo}>
-              <p className={styles.cardLabel}>SOFTWARE PARA {product.sector.toUpperCase()}</p>
-              <h4>{product.headline}</h4>
-              <p>{product.description}</p>
-              <dl className={styles.facts}>
-                <div><dt>Dirigido a</dt><dd>{product.audience}</dd></div>
-                <div><dt>Modalidad</dt><dd>Producto SaaS</dd></div>
-                <div><dt>Modelo de cobro</dt><dd>{product.billingModel}</dd></div>
-                <div><dt>Disponibilidad</dt><dd>{product.availability}</dd></div>
-              </dl>
-              <div className={styles.actions}>
-                <Link className={styles.primaryLink} to={product.href}>{product.buttonText}<FaArrowUp className={styles.externalArrow} aria-hidden="true" /></Link>
-                <Link className={styles.textLink} to={product.pilotHref} aria-label={`Solicitar participar en el piloto de ${product.name}`}>Solicitar participar en el piloto <FaArrowRight aria-hidden="true" /></Link>
-              </div>
-            </div>
-          </article>
+          <ProductCatalogCard product={product} key={product.slug} />
         ))}
       </section>
 
@@ -115,4 +96,4 @@ export const ProductsPage = () => (
     </main>
     <Footer />
   </>
-);
+);};

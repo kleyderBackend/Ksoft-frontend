@@ -1,0 +1,7 @@
+import {Link} from "react-router-dom";
+import {useAdmin} from "../../AdminContext";
+import styles from "./DeveloperWorkManager.module.css";
+export function DeveloperOverview(){
+ const {data,role}=useAdmin();const projects=data.workspace.records.projects,tasks=data.workspace.records.tasks;
+ return <div className={styles.container}><header><p className={styles.eyebrow}>EQUIPO KSOFT</p><h1>Hola, {data.workspace.settings.owner}</h1><p>Colabora con tu equipo y consulta tus responsabilidades.</p></header><div className={styles.formGrid}><Link className={styles.panel} to="/dashboard/tickets"><h2>Tickets internos</h2><p>Reporta errores, resuelve bloqueos y contacta con el equipo →</p></Link><Link className={styles.panel} to="/dashboard/profile"><h2>Mi perfil</h2><p>Consulta tu acceso y cambia tu contraseña →</p></Link>{role!=="employee"&&<><Link className={styles.panel} to="/dashboard/projects"><h2>{projects.length} proyectos asignados</h2><p>Ver alcance y seguimiento →</p></Link><Link className={styles.panel} to="/dashboard/tasks"><h2>{tasks.filter(task=>task.values.status!=="Completada").length} tareas pendientes</h2><p>Revisar estados y notas de trabajo →</p></Link></>}</div>{role!=="employee"&&<section className={styles.panel}><h2>Próximas tareas</h2>{tasks.length?<ul>{tasks.slice(0,8).map(task=><li key={task.id}><Link to="/dashboard/tasks">{task.values.name}</Link> · {task.values.status}{task.values.due?" · "+task.values.due:""}</li>)}</ul>:<p>El administrador aún no te ha asignado tareas.</p>}</section>}</div>;
+}

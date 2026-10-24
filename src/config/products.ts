@@ -46,3 +46,4 @@ export const products = [
     ],
   },
 ];
+export type CatalogProduct = (typeof products)[number] & { contactButtonText?: string };

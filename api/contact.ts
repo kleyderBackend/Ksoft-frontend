@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
+import { createHash } from "node:crypto";
 
 type ContactRequest = IncomingMessage & { body?: unknown };
 const defaultEndpoint = "https://script.google.com/macros/s/AKfycbxn5xT14ewPCAZ2WxDv4wOyuWHmG6x5-5jKMs-zlDUz6OiEA50As1nLvQn8iVsc6dgHEQ/exec";
@@ -38,6 +39,23 @@ export default async function handler(req: ContactRequest, res: ServerResponse) 
   if (!name || name.length > 120 || !/^\S+@\S+\.\S+$/.test(email) || email.length > 254 || !message || message.length > 5000) return reply(400, false);
 
   try {
+    const supabaseUrl=process.env.SUPABASE_URL;
+    const serverKey=process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if(supabaseUrl||serverKey){
+      if(!supabaseUrl||!serverKey)return reply(503,false);
+      const product=typeof fields.product==="string"?fields.product.trim():"";
+      const purpose=fields.purpose==="pilot"?"pilot":"general";
+      if(product.length>160 || purpose==="pilot"&&!product)return reply(400,false);
+      // Hash email for an atomic per-sender cooldown; no anonymous table grants.
+      const fingerprint=createHash("sha256").update(email.toLowerCase()).digest("hex");
+      const response=await fetch(new URL("/rest/v1/rpc/ksoft_receive_enquiry",supabaseUrl),{
+        method:"POST",headers:{"Content-Type":"application/json",apikey:serverKey,Authorization:"Bearer "+serverKey},
+        body:JSON.stringify({enquiry:{name,email,message,product,purpose},fingerprint}),signal:AbortSignal.timeout(12000),
+      });
+      if(!response.ok)return reply(response.status===400&&(await response.text()).includes("RATE_LIMITED")?429:502,false);
+      const result:unknown=await response.json();
+      return reply(typeof result==="string"&&/^[0-9a-f-]{36}$/i.test(result)?200:502,typeof result==="string"&&/^[0-9a-f-]{36}$/i.test(result));
+    }
     // Preserve the existing Apps Script doGet integration and verify its acknowledgement.
     const url = new URL(process.env.CONTACT_SCRIPT_URL || defaultEndpoint);
     url.search = new URLSearchParams({ name, email, message }).toString();

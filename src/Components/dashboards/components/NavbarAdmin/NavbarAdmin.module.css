@@ -1,0 +1,17 @@
+.navbar { min-height: 78px; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid #1e293b; background: #080f20; }
+.breadcrumb { display: flex; gap: 12px; color: #8397b2; font-size: 12px; }
+.breadcrumb strong { color: #dce8f7; font-weight: 500; }
+.breadcrumb span { color: #3e526c; }
+.controls { display: flex; align-items: center; gap: 22px; }
+.navbar a { display: inline-flex; align-items: center; gap: 8px; color: #cbd5e1; text-decoration: none; font-size: 13px; }
+.navbar a:hover { color: #67e8f9; }
+.bell { position: relative; font-size: 20px !important; }
+.bell span { position: absolute; top: -8px; right: -10px; font-size: 9px; border-radius: 30px; background: #167690; padding: 2px 4px; color: #fff; }
+.profile { position: relative; z-index: 10; }
+.profile summary { display: flex; align-items: center; gap: 8px; cursor: pointer; list-style: none; }
+.profile summary::-webkit-details-marker { display: none; }
+.avatar { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: #17384d; color: #67e8f9; font-size: 14px; border: 1px solid #295b71; }
+.profile > div { position: absolute; right: 0; top: 48px; min-width: 220px; display: flex; flex-direction: column; gap: 16px; border: 1px solid #29425f; border-radius: 12px; background: #0e1c31; padding: 20px; box-shadow: 0 15px 30px #0008; font-size: 12px; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (max-width: 600px) { .navbar { padding: 16px 20px; min-height: 60px; flex-wrap: wrap; } .controls { gap: 16px; } .breadcrumb { font-size: 10px; gap: 8px; } .website { display: none !important; } }
+

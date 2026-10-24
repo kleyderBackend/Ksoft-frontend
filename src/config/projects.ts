@@ -5,12 +5,19 @@ export interface Project {
   status: string;
   sector: string;
   logo?: string;
+  buttonText?: string;
+  icon?: string;
+  cover?: { src: string; title: string; alt: string; caption: string; width: number; height: number };
+  galleryEyebrow?: string;
+  galleryPanelLabel?: string;
   summary: string;
   challenge: string;
   solution: string;
   benefit: string;
   features: string[];
-  images: { src: string; alt: string; caption: string }[];
+  galleryTitle?: string;
+  galleryIntro?: string;
+  images: { src: string; title: string; alt: string; caption: string; width: number; height: number }[];
   href?: string;
 }
 
@@ -27,7 +34,15 @@ export const projects: Project[] = [
     solution: "Un portal público para explorar hoteles y guías, conectado a paneles para turistas, proveedores y administración. Cada rol dispone de herramientas para gestionar su parte del recorrido de la reserva.",
     benefit: "Presenta tu oferta turística, organiza tus reservas y mantén la comunicación con tus viajeros desde un mismo lugar.",
     features: ["Catálogo público de hoteles y guías con páginas de detalle.", "Reservas de habitaciones y servicios turísticos con consulta de disponibilidad.", "Panel del viajero con perfil, reservas y reseñas.", "Paneles para hoteles y guías con gestión de oferta, reservas y reportes.", "Chat y notificaciones para acompañar la operación.", "Administración de usuarios, proveedores, verificaciones, soporte y disputas."],
-    images: [],
+    galleryTitle: "Conoce el panel de tu hotel",
+    galleryIntro: "Explora las vistas de Ksoft Travel para hoteles: desde el resumen de la operación hasta la gestión de habitaciones y disponibilidad. Las cifras y políticas visibles en las capturas no representan una oferta comercial.",
+    images: [
+      { src: "/img/projects/travel-hotel-resumen.png", title: "Resumen del hotel", alt: "Panel del hotel en Ksoft Travel con reservas activas, ventas y ocupación", caption: "Revisa las reservas activas, las ventas recientes y la ocupación desde el resumen de tu hotel.", width: 1600, height: 813 },
+      { src: "/img/projects/travel-hotel-habitaciones.png", title: "Habitaciones", alt: "Gestión de habitaciones del hotel con categorías, capacidad, precio y disponibilidad", caption: "Organiza tu inventario de habitaciones y consulta su tipo, capacidad, precio y estado.", width: 1600, height: 817 },
+      { src: "/img/projects/travel-hotel-disponibilidad.png", title: "Disponibilidad", alt: "Calendario mensual de disponibilidad de habitaciones en el panel hotel de Ksoft Travel", caption: "Consulta la disponibilidad por fecha y habitación para planificar la ocupación de tu hotel.", width: 1600, height: 814 },
+      { src: "/img/projects/travel-hotel-facturacion.png", title: "Facturación", alt: "Vista de facturación del hotel con balance, comisiones y movimientos de reservas", caption: "Da seguimiento al balance, las comisiones y los movimientos asociados a las reservas.", width: 1600, height: 814 },
+      { src: "/img/projects/travel-hotel-configuracion.png", title: "Condiciones del hotel", alt: "Configuración de políticas de cancelación y reembolso del hotel en Ksoft Travel", caption: "Gestiona las condiciones de cancelación y reembolso que aplican a las reservas de tu hotel.", width: 1600, height: 814 },
+    ],
   },
   {
     slug: "saas-dental",

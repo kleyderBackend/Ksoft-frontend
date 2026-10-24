@@ -1,0 +1,11 @@
+.git
+.env*
+*.local
+node_modules
+dist
+docs
+tests
+supabase
+scripts
+pnpm-lock.yaml
+pnpm-workspace.yaml

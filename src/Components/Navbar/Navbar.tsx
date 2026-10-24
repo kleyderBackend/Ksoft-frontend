@@ -1,6 +1,7 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import styles from "./Navbar.module.css";
+import {usePublicSite} from "../../content/publicSiteContext";
 
 interface NavbarProps {
   title: string;
@@ -10,6 +11,7 @@ export const Navbar = ({ title, imglogo }: NavbarProps) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const {posts}=usePublicSite();
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -21,9 +23,10 @@ export const Navbar = ({ title, imglogo }: NavbarProps) => {
       { to: "/", label: "Inicio" },
       { to: "/about", label: "Nosotros" },
       { to: "/products", label: "Productos" },
+      ...(posts.length?[{to:"/novedades",label:"Novedades"}]:[]),
       { to: "/contact", label: "Contacto" },
     ],
-    []
+    [posts.length]
   );
 
   return (

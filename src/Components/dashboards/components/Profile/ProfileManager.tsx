@@ -1,0 +1,12 @@
+import {useEffect,useState} from 'react';
+import {requireSupabase} from '../../../../lib/supabase';
+import {useDashboardAccess,roleLabels} from '../../accessContext';
+import {useUnsavedChanges} from '../../useUnsavedChanges';
+import styles from './ProfileManager.module.css';
+export function ProfileManager(){
+ const {role}=useDashboardAccess();const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[confirmation,setConfirmation]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('');
+ useUnsavedChanges(!!password||!!confirmation);
+ useEffect(()=>{let active=true;requireSupabase().auth.getUser().then(({data,error})=>{if(active){if(error)setError('No se pudo consultar tu perfil.');else setEmail(data.user?.email??'');}});return()=>{active=false;};},[]);
+ const submit=async()=>{setError('');setNotice('');if(password.length<12||password!==confirmation){setError('Usa al menos 12 caracteres y confirma la misma contraseña.');return;}setBusy(true);try{const {error}=await requireSupabase().auth.updateUser({password});if(error)throw error;setPassword('');setConfirmation('');setNotice('Contraseña actualizada. Usa tu nueva contraseña al iniciar sesión.');}catch{setError('No se pudo cambiar la contraseña. Inicia sesión de nuevo y vuelve a intentarlo.');}finally{setBusy(false);}};
+ return <div className={styles.container}><section className={styles.panel}><span className={styles.badge}>{roleLabels[role]}</span><h2>Tu cuenta de Ksoft</h2><p>{email||'Consultando correo…'}</p><p>El administrador gestiona tu rol y las asignaciones. Tu contraseña es personal.</p></section><form className={styles.panel} onSubmit={event=>{event.preventDefault();void submit();}}><h2>Cambiar contraseña</h2><fieldset disabled={busy}><label className={styles.field}>Nueva contraseña<input required type="password" minLength={12} maxLength={128} autoComplete="new-password" value={password} onChange={event=>setPassword(event.target.value)}/></label><label className={styles.field}>Confirmar contraseña<input required type="password" minLength={12} maxLength={128} autoComplete="new-password" value={confirmation} onChange={event=>setConfirmation(event.target.value)}/></label><small>Utiliza al menos 12 caracteres.</small><div className={styles.actions}><button className={styles.primary}>{busy?'Actualizando…':'Actualizar contraseña'}</button></div></fieldset>{error&&<p role="alert" className={styles.error}>{error}</p>}{notice&&<p role="status">{notice}</p>}</form></div>;
+}

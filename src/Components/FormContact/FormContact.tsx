@@ -3,12 +3,13 @@ import { useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { CONTACT_EMAIL } from "../../config/contact";
 import { FaArrowRight, FaCheckCircle, FaExclamationCircle } from "react-icons/fa";
-import { products } from "../../config/products";
+import { usePublicSite } from "../../content/publicSiteContext";
 import { createContactMessage, getContactIntent } from "../../utils/contactIntent";
 
 const topics = ["Proyecto a medida", "Producto SaaS", "Otra consulta"];
 
 export const ContactForm = () => {
+  const {products}=usePublicSite();
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export const ContactForm = () => {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: form.name.trim(), email: form.email.trim(), message: createContactMessage({ topic: activeTopic, productName: product?.name, isPilot, message: form.message }) }),
+        body: JSON.stringify({ name: form.name.trim(), email: form.email.trim(), product:product?.slug??"",purpose:isPilot?"pilot":"general",message: createContactMessage({ topic: activeTopic, productName: product?.name, isPilot, message: form.message }) }),
         signal: AbortSignal.timeout(20000),
       });
       const result = await response.json();

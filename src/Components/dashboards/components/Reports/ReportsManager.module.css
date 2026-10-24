@@ -1,0 +1,156 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+.count {
+  color: #94a3b8;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0;
+}
+.container button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.toolbar {
+  display: flex;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.field,
+.search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #cbd5e1;
+  font-size: 14px;
+}
+.container input,
+.container textarea,
+.container select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #3b4b63;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #090f20;
+  color: #f1f5f9;
+  font: inherit;
+}
+.container textarea {
+  resize: vertical;
+}
+.container small {
+  color: #94a3b8;
+  line-height: 1.6;
+}
+.container button {
+  border: 1px solid #40516b;
+  border-radius: 9px;
+  background: #142238;
+  color: #e2e8f0;
+  padding: 10px 16px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+}
+.container button:hover {
+  border-color: #67e8f9;
+  color: #67e8f9;
+}
+.container button.primary {
+  background: linear-gradient(100deg, #22d3ee, #38bdf8);
+  color: #061526;
+  border-color: transparent;
+  font-weight: 700;
+}
+.container button.danger {
+  color: #fca5a5;
+}
+.container :is(button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 4px;
+}
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: #0c1527;
+  border: 1px solid #233b53;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 18px;
+  min-width: 0;
+}
+.panel h2,
+.panel h3 {
+  margin: 0;
+  line-height: 1.4;
+}
+.error {
+  color: #fecaca;
+  background: #391c29;
+  border-radius: 10px;
+  padding: 16px;
+}
+@media (max-width: 600px) {
+  .toolbar > *,
+  .toolbar > button {
+    width: 100%;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid rgba(56, 189, 248, 0.18);
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.14) 0%, rgba(15, 23, 42, 0.9) 100%);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 40px 60px -40px rgba(56, 189, 248, 0.4);
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 55%);
+  pointer-events: none;
+}
+
+.cardLabel {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 12px;
+  color: #38bdf8;
+}
+.error { color: #fecaca; background: #391c29; border-radius: 10px; padding: 16px; }
+.quickGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.quickGrid a { border: 1px solid #253e56; background: #0c172a; border-radius: 18px; padding: 28px; text-decoration: none; color: #e2e8f0; }
+.quickGrid a:hover { border-color: #38bdf8; background: #102139; }
+.quickGrid span { color: #7dd3fc; font-size: 11px; letter-spacing: .1em; }
+.quickGrid h2 { font-size: 24px; margin: 20px 0 10px; }
+.quickGrid p { color: #a7b7cc; line-height: 1.8; margin: 0 0 24px; }
+.quickGrid strong { color: #67e8f9; font-size: 14px; }
+.moneyValue { font-size: clamp(22px, 2.3vw, 34px); margin: 0; overflow-wrap: anywhere; }
+.chartRow { display: flex; gap: 24px; border-top: 1px solid #25354d; padding: 20px 0; font-size: 13px; }
+.chartRow > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; color: #a7b7cc; }
+.chartRow meter { width: 100%; height: 18px; }
+.chartRow meter::-webkit-meter-bar { background: #17283c; border: 0; }
+.chartRow meter::-webkit-meter-optimum-value { background: #22b8cf; }
+.chartRow .expenseMeter::-webkit-meter-optimum-value { background: #ad8bfa; }
+@media (min-width: 1500px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (max-width: 1200px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .grid { gap: 12px; } .card { padding: 16px; } .cardLabel { font-size: 10px; letter-spacing: .06em; } .quickGrid { grid-template-columns: 1fr; } }

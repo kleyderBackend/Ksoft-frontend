@@ -1,0 +1,35 @@
+.eyebrow { color: #67e8f9; font-size: 11px; line-height: 1.8; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 16px; }
+.sectionHeader p:not(.eyebrow) { color: #94a3b8; line-height: 1.8; font-size: 14px; margin: 0; }
+.sectionHeader .eyebrow { margin-bottom: 12px; }
+.card { border: 1px solid rgba(56, 189, 248, .18); border-radius: 22px; background: #0b1326; overflow: hidden; display: flex; flex-direction: column; }
+.cardVisual { aspect-ratio: 16 / 9; background: #061021; border-bottom: 1px solid var(--stroke); overflow: hidden; }
+.cover { width: 100%; height: 100%; display: block; object-fit: contain; background: #081428; }
+.brandTitle { display: flex; align-items: center; gap: 12px; }
+.brandTitle img { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; flex-shrink: 0; }
+.cardBody { padding: 28px; flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.cardMeta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; width: 100%; margin-bottom: 22px; }
+.cardMeta .eyebrow { margin: 0; font-size: 10px; }
+.status { display: inline-flex; padding: 7px 12px; border: 1px solid rgba(56, 189, 248, .25); border-radius: 999px; color: #a5f3fc; font-size: 11px; line-height: 1.6; flex-shrink: 0; }
+.card h3 { margin: 0 0 12px; font-size: 24px; line-height: 1.4; letter-spacing: -.025em; }
+.cardBody > p { color: #cbd5e1; font-size: 14px; line-height: 1.85; margin: 0 0 22px; }
+.textLink, .primaryLink { display: inline-flex; align-items: center; gap: 12px; font-size: 14px; line-height: 1.8; }
+.textLink { color: #67e8f9; text-underline-offset: 6px; }
+.textLink svg, .primaryLink svg { flex-shrink: 0; }
+.cardBody > .textLink { margin-top: auto; padding-top: 16px; }
+.productVisual { height: 100%; min-height: 240px; padding: 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(ellipse at 50% 35%, rgba(34, 211, 238, .17), transparent 70%), #081428; color: #94a3b8; font-size: 12px; gap: 12px; }
+.productVisual > svg { font-size: 60px; color: #a5f3fc; padding: 18px; box-sizing: content-box; border: 1px solid rgba(56, 189, 248, .25); border-radius: 24px; background: rgba(56, 189, 248, .07); }
+.visualName { color: #f1f5f9; font-weight: 600; font-size: 28px; letter-spacing: -.03em; }
+.productLogo { display: block; width: clamp(72px, 8vw, 112px); height: auto; object-fit: contain; border-radius: 18px; }
+.detailVisual .productLogo { width: clamp(92px, 18vw, 230px); }
+.productVisual .visualNote { font-size: 10px; line-height: 1.8; color: #94a3b8; }
+.detailVisual .productVisual > svg { font-size: 90px; }
+.storyGrid section > p:last-child, .visit p, .cta p:not(.eyebrow) { color: #94a3b8; font-size: 15px; line-height: 1.85; }
+@media (max-width: 900px) {
+  .productVisual { min-height: 0; padding: 20px; gap: 8px; }
+  .productVisual > svg { font-size: 38px; padding: 12px; }
+  .visualName { font-size: 24px; }
+}
+@media (max-width: 700px) {
+  .detailVisual .productVisual > svg { font-size: 38px; }
+  .cardBody { padding: 24px; }
+}

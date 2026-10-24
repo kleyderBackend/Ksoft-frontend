@@ -1,0 +1,42 @@
+.eyebrow { color: #67e8f9; font-size: 12px; letter-spacing: 0.16em; line-height: 1.8; margin: 0 0 20px; }
+.body, .sectionHeader > p, .centeredHeader > p:not(.eyebrow), .productInfo > p:not(.cardLabel), .steps p, .faqIntro > p:not(.eyebrow), .question p, .customSection p:not(.eyebrow) { color: #94a3b8; font-size: 15px; line-height: 1.85; }
+.actions { display: flex; align-items: center; flex-wrap: wrap; gap: 22px; margin-top: 30px; }
+.primaryLink, .textLink { display: inline-flex; align-items: center; justify-content: center; gap: 12px; font-size: 14px; }
+.primaryLink { min-height: 48px; padding: 12px 22px; border-radius: 999px; background: linear-gradient(90deg, #22d3ee, #3b82f6); color: #020617; font-weight: 600; text-decoration: none; text-align: center; transition: box-shadow 0.2s ease; }
+.primaryLink:hover { box-shadow: 0 0 26px rgba(56, 189, 248, 0.25); }
+.textLink { color: #67e8f9; text-underline-offset: 6px; line-height: 1.7; }
+.primaryLink svg, .textLink svg { flex-shrink: 0; }
+.externalArrow { transform: rotate(45deg); }
+.status { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(56, 189, 248, 0.24); border-radius: 999px; padding: 8px 12px; color: #a5f3fc; font-size: 11px; line-height: 1.5; }
+.status i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #22d3ee; flex-shrink: 0; }
+.productCard { display: grid; grid-template-columns: 0.8fr 1.4fr; overflow: hidden; border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px; background: var(--panel2); }
+.productCard + .productCard { margin-top: 28px; }
+.productBrand { padding: 46px 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(ellipse at top, rgba(56, 189, 248, 0.15), transparent 80%), #0b1428; border-right: 1px solid var(--stroke); }
+.productSymbol { display: grid; place-items: center; width: 82px; height: 82px; font-size: 40px; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.2); background: rgba(2, 6, 23, 0.4); margin-bottom: 32px; }
+.productSymbol img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.productBrand .eyebrow { font-size: 10px; margin-bottom: 12px; }
+.productBrand h3 { margin: 0; font-size: 28px; letter-spacing: -0.03em; }
+.productBrand > p:not(.eyebrow) { font-size: 12px; color: #94a3b8; margin: 16px 0 24px; line-height: 1.7; }
+.productInfo { padding: 40px; }
+.cardLabel { color: #67e8f9; font-size: 10px; letter-spacing: 0.12em; line-height: 1.8; margin: 0 0 18px; }
+.productInfo h4 { font-size: 26px; line-height: 1.4; letter-spacing: -0.02em; margin: 0 0 18px; }
+.facts { margin: 26px 0 0; }
+.facts > div { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid var(--stroke); font-size: 13px; line-height: 1.7; }
+.facts dt { color: #94a3b8; }
+.facts dd { margin: 0; color: #cbd5e1; }
+.productInfo .actions { gap: 20px; }
+.faqIntro .textLink { margin-top: 12px; }
+.customSection p:not(.eyebrow) { margin-bottom: 0; }
+
+@media (max-width: 1000px) {
+  .productInfo { padding: 30px; }
+}
+@media (max-width: 760px) {
+  .sectionHeader, .productCard, .steps, .faqSection { grid-template-columns: 1fr; }
+  .productBrand { border-right: 0; border-bottom: 1px solid var(--stroke); }
+}
+@media (max-width: 480px) {
+  .productInfo { padding: 26px; }
+  .productInfo h4 { font-size: 23px; }
+  .facts > div { grid-template-columns: 1fr; gap: 4px; }
+}

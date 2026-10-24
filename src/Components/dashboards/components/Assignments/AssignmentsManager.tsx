@@ -1,0 +1,12 @@
+import {useEffect,useState} from "react";
+import {requireSupabase} from "../../../../lib/supabase";
+import {useAdmin} from "../../AdminContext";
+import styles from "./AssignmentsManager.module.css";
+interface Developer{id:string;name:string;email:string;role:string}
+export function AssignmentsManager({module,id,onClose}:{module:"projects"|"tasks";id:string;onClose:()=>void}){
+ const {refresh}=useAdmin();
+ const [developers,setDevelopers]=useState<Developer[]>([]),[selected,setSelected]=useState<string[]>([]),[busy,setBusy]=useState(true),[error,setError]=useState("");
+ useEffect(()=>{let active=true;const load=async()=>{try{const client=requireSupabase();const [users,assignments]=await Promise.all([client.rpc("ksoft_list_developers"),client.rpc("ksoft_get_assignments",{p_module:module,p_id:id})]);if(users.error||assignments.error)throw new Error();if(active){setDevelopers(users.data);setSelected(assignments.data);}}catch{if(active)setError("No se pudieron cargar los integrantes del equipo.");}finally{if(active)setBusy(false);}};void load();return()=>{active=false;};},[module,id]);
+ const submit=async()=>{setBusy(true);setError("");const {error}=await requireSupabase().rpc("ksoft_assign_record",{p_module:module,p_id:id,p_users:selected});if(error){setError(error.message.includes("ASSIGN_PROJECT_FIRST")?"Asigna primero este integrante al proyecto al que pertenece la tarea.":"No se pudo guardar la asignación.");setBusy(false);return;}onClose();await refresh();};
+ return <section className={styles.panel} aria-label="Asignar equipo de trabajo"><div className={styles.heading}><h2>Asignar equipo de trabajo</h2><button type="button" onClick={onClose}>Cerrar asignación</button></div><p>Selecciona quién puede acceder a este {module==="projects"?"proyecto":"trabajo"}. Para asignar una tarea, el integrante debe tener también acceso a su proyecto.</p>{developers.map(developer=><label key={developer.id}><input type="checkbox" checked={selected.includes(developer.id)} disabled={busy} onChange={event=>setSelected(event.target.checked?[...selected,developer.id]:selected.filter(value=>value!==developer.id))}/> {developer.name} · {developer.role==="qa"?"QA":"Development"} · {developer.email}</label>)}{!busy&&!developers.length&&<p>No hay desarrolladores o QA activos.</p>}{error&&<p className={styles.error} role="alert">{error}</p>}<div><button type="button" disabled={busy} onClick={()=>void submit()}>{busy?"Cargando…":"Guardar asignación"}</button></div></section>;
+}

@@ -1,0 +1,22 @@
+.sidebar { width: 280px; height: 100dvh; position: sticky; top: 0; flex-shrink: 0; padding: 28px 18px 16px; border-right: 1px solid #1c3049; background: linear-gradient(180deg,#0c162a,#080f20); display: flex; flex-direction: column; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 12px; padding: 0 10px; font-size: 20px; flex-shrink: 0; }
+.brand small { display: block; color: #94a3b8; font-size: 11px; font-weight: 400; margin-top: 5px; }
+.mark { display: grid; place-items: center; width: 42px; height: 42px; background: linear-gradient(145deg,#164c67,#12243e); border: 1px solid #28637c; color: #67e8f9; border-radius: 12px; font-weight: 700; flex-shrink: 0; }
+.label { margin: 16px 14px 10px; color: #7f96b3; font-size: 10px; font-weight: 600; letter-spacing: .14em; }
+.nav { display: flex; flex-direction: column; gap: 8px; overflow-y: auto; min-height: 0; padding-right: 6px; }
+.nav section { display: flex; flex-direction: column; gap: 4px; }
+.nav a { display: flex; align-items: center; gap: 12px; padding: 12px 14px; color: #a7b7cc; text-decoration: none; border: 1px solid transparent; border-radius: 10px; font-size: 13px; }
+.nav a svg { font-size: 17px; flex-shrink: 0; }
+.nav a[aria-current="page"] { background: linear-gradient(90deg,#123b54,#10253d); border-color: #20516b; color: #67e8f9; box-shadow: inset 3px 0 #22d3ee; }
+.nav a:hover { background: #13283e; color: white; }
+.bottom { margin-top: 20px; padding-top: 16px; border-top: 1px solid #1e3048; }
+.footer { margin-top: auto; display: flex; align-items: center; gap: 10px; border-top: 1px solid #1e3048; padding: 18px 8px 0; font-size: 11px; flex-shrink: 0; }
+.footer strong { display: block; color: #dce8f7; overflow-wrap: anywhere; }
+.footer small { display: block; color: #7f96b3; margin-top: 4px; }
+.avatar { background: #17384d; color: #67e8f9; border: 1px solid #295b71; border-radius: 50%; width: 32px; height: 32px; display: grid; place-items: center; flex-shrink: 0; }
+.mobileToggle { display: none; }
+@media (max-width: 900px) { .sidebar { width: 100%; height: auto; position: static; padding: 20px; border-right: 0; border-bottom: 1px solid #1e293b; gap: 0; } .brand { padding: 0; } .mobileToggle { margin-left: auto; display: grid; place-items: center; padding: 10px; background: #14273b; border: 1px solid #2d4b68; border-radius: 8px; color: #7dd3fc; font-size: 20px; cursor: pointer; } .nav { display: none; margin-top: 20px; max-height: 65dvh; } .nav[data-open="true"] { display: flex; } .footer { display: none; } }
+
+.counter { margin-left:auto; padding:2px 7px; border-radius:20px; background:#184052; color:#a5f3fc; font-size:10px; }
+
+.brand strong {font-size:18px;line-height:1.3;display:block;overflow-wrap:anywhere}.brand>div {min-width:0}.nav {flex:1}.nav a:focus-visible {outline:2px solid #67e8f9;outline-offset:2px}
