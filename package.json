@@ -1,5 +1,5 @@
 {
-  "name": "package.json",
+  "name": "ksoft-frontend",
   "private": true,
   "packageManager": "npm@10.9.7",
   "version": "0.0.0",
@@ -36,5 +36,8 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
-  }
+  },
+  "description": "Sitio corporativo y plataforma privada de gestión de Ksoft Technology.",
+  "author": "Kleyder Moreno Davila",
+  "license": "UNLICENSED"
 }

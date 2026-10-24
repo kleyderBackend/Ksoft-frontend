@@ -17,9 +17,9 @@ Los productos aparecen en `/products` y tienen detalle propio. Las publicaciones
 ## Asignar trabajo
 
 1. Crea o guarda un proyecto en Proyectos → Gestión interna.
-2. Pulsa **Asignar desarrolladores**, selecciona la cuenta y guarda la asignación.
+2. Pulsa **Asignar equipo de trabajo** (o **Guardar y asignar equipo** al crear el proyecto), selecciona desarrolladores o QA y guarda la asignación.
 3. Crea las tareas y relaciónalas con ese proyecto.
-4. Asigna cada tarea al desarrollador. La base exige que tenga también acceso al proyecto.
+4. Asigna cada tarea entre los integrantes del proyecto. La base exige que tengan también acceso al proyecto.
 5. El desarrollador puede usar **Actualizar registros** para consultar asignaciones recientes.
 
 ## Permisos
@@ -38,7 +38,7 @@ Los productos aparecen en `/products` y tienen detalle propio. Las publicaciones
 
 Los permisos se comprueban en PostgreSQL, además de limitar las pantallas del dashboard. Cambiar la interfaz, una URL o el JSON de una petición no convierte al desarrollador en administrador.
 
-La cuenta que antes era administradora pasó a desarrollador después de crear y verificar el nuevo acceso administrativo. No se crearon las direcciones descartadas durante la conversación.
+Para crear empleados y consultar los permisos de QA y Empleado, consulta [equipo-y-tickets.md](equipo-y-tickets.md). Allí también se explica cómo gestionar proyectos propios, desarrollo de SaaS y tickets internos.
 
 ## Despliegue
 

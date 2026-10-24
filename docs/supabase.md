@@ -18,7 +18,7 @@ select id from auth.users where lower(email) = lower('TU_CORREO_REAL')
 on conflict do nothing;
 ```
 
-Comprueba que se insertó un usuario. Tener una cuenta en Supabase Auth por sí solo no da acceso al panel; hace falta pertenecer a `ksoft_admins`. Desactiva el registro público de cuentas para este panel en la configuración de Auth. El sitio no ofrece un formulario de registro.
+Comprueba que se insertó un usuario. Tener una cuenta en Supabase Auth por sí solo no da acceso al panel. Para la administración inicial hace falta pertenecer a `ksoft_admins`; las cuentas de Development, QA y Empleado se gestionan después desde Equipo. Desactiva el registro público de cuentas para este panel en la configuración de Auth. El sitio no ofrece un formulario de registro.
 
 ## 3. Configurar el proyecto local
 
@@ -27,9 +27,9 @@ Copia `.env.example` a `.env.local` y reemplaza sus valores. La URL del proyecto
 - `VITE_SUPABASE_URL`: URL del proyecto.
 - `VITE_SUPABASE_PUBLISHABLE_KEY`: clave pública publishable (también se admite la antigua anon en `VITE_SUPABASE_ANON_KEY`).
 - `SUPABASE_URL`: la misma URL para el endpoint de contacto.
-- `SUPABASE_SERVICE_ROLE_KEY`: clave legacy service_role, **solo en el servidor**, para registrar solicitudes. Nunca debe llevar prefijo `VITE_`, aparecer en el código público o enviarse por chat.
+- `SUPABASE_SERVICE_ROLE_KEY`: clave legacy service_role, **solo en el servidor**, para registrar solicitudes y crear empleados autorizados. Nunca debe llevar prefijo `VITE_`, aparecer en el código público o enviarse por chat.
 
-Reinicia `npm run dev`. El middleware local carga únicamente las variables necesarias para el endpoint. En Vercel configura las mismas variables en el entorno correspondiente y vuelve a desplegar: Vite incorpora las variables públicas durante la compilación. Si usas un hosting distinto, necesitas alojar también `/api/contact` como función de servidor.
+Reinicia `npm run dev`. El middleware local carga únicamente las variables necesarias para el endpoint. En Vercel configura las mismas variables en el entorno correspondiente y vuelve a desplegar: Vite incorpora las variables públicas durante la compilación. Si usas un hosting distinto, necesitas alojar también `/api/contact` y `/api/team` como funciones de servidor.
 
 Las variables privadas están excluidas de Git. `.env.example` contiene únicamente ejemplos sin credenciales.
 
@@ -65,6 +65,9 @@ El RPC de recepción solo puede ejecutarlo el servidor con service_role; el púb
 - `ksoft_public_site`: copia comercial publicada, de solo lectura para visitantes.
 - `ksoft_audit`: registro de servidor de autor, fecha, acción y revisión. Los clientes no pueden modificarlo. El historial detallado del panel conserva su función de recuperación local de cambios y forma parte del documento guardado.
 - `ksoft_intake_limits`: control temporal de repetición del formulario.
+- `ksoft_developers`: perfiles del equipo, rol y estado de acceso; conserva el nombre histórico de la tabla.
+- `ksoft_assignments`: asignaciones de cuentas a proyectos y tareas.
+- `ksoft_tickets`, `ksoft_ticket_messages` y `ksoft_ticket_reads`: solicitudes internas, conversación y estado de lectura.
 
 Las escrituras privadas se realizan mediante RPC autorizados y transaccionales. Una revisión desactualizada revierte toda la operación. La base también valida relaciones y montos; los formularios mantienen sus validaciones adicionales. Las claves públicas no sustituyen las políticas de acceso. Solo se envía la clave pública al navegador.
 
@@ -72,10 +75,10 @@ Las escrituras privadas se realizan mediante RPC autorizados y transaccionales. 
 
 `npm test` incluye ejecución real del SQL con PostgreSQL embebido (PGlite), roles separados, permisos, reversión de guardados inválidos, conflictos de revisión, publicación sin datos internos y recepción limitada a servidor. Las tablas gestionadas por Supabase Auth/Storage se simulan en ese test. También se comprueba el endpoint de contacto con respuestas de Supabase simuladas.
 
-Se verificaron en el proyecto real la cuenta administradora, el inicio de sesión desde el navegador, la lectura del catálogo privado, una escritura autenticada de la configuración y su persistencia al recargar. `node scripts/check-supabase.mjs` comprueba, de forma solo lectura, el catálogo público, el bloqueo de tablas privadas y el registro cerrado. `supabase/tests/live_smoke.sql` valida la recepción real de una solicitud dentro de una transacción que revierte íntegramente los registros y la revisión. La versión conectada y sus variables ya están desplegadas en `https://ksoftdev.vercel.app`. Se verificaron las respuestas HTTP públicas y el endpoint de contacto. La última apertura visual de ese dominio mediante automatización quedó bloqueada por un permiso guardado del navegador; la revisión de pantallas se realizó localmente.
+Las verificaciones conectadas deben comprobar el inicio de sesión, el rol, la lectura autorizada y la persistencia de cambios. `node scripts/check-supabase.mjs` comprueba, de forma solo lectura, el catálogo público, el bloqueo de tablas privadas y el registro cerrado. `supabase/tests/live_smoke.sql` valida la recepción real de una solicitud dentro de una transacción que revierte íntegramente los registros y la revisión. La versión conectada y sus variables ya están desplegadas en `https://ksoftdev.vercel.app`. Se verificaron las respuestas HTTP públicas y el endpoint de contacto.
 
 Documentación oficial consultada: [Auth](https://supabase.com/docs/reference/javascript/auth-signinwithpassword), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [Storage](https://supabase.com/docs/guides/storage/security/access-control).
 
 ## Roles y uso del panel
 
-Consulta [administracion.md](administracion.md) para publicar contenido, retirar versiones públicas y asignar proyectos y tareas. Los permisos de desarrollador se filtran y validan en PostgreSQL. Las tablas `ksoft_developers` y `ksoft_assignments` no tienen acceso directo desde el navegador. Las pruebas cubren intentos de leer finanzas, publicar o cambiar campos que no pertenecen al desarrollador.
+Consulta [administracion.md](administracion.md) para publicar contenido y [equipo-y-tickets.md](equipo-y-tickets.md) para gestionar empleados, proyectos propios, asignaciones y tickets. Los permisos de desarrollador se filtran y validan en PostgreSQL. Las tablas `ksoft_developers` y `ksoft_assignments` no tienen acceso directo desde el navegador. Las pruebas cubren intentos de leer finanzas, publicar o cambiar campos que no pertenecen al desarrollador.
