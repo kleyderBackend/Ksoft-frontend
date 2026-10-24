@@ -7,7 +7,7 @@ export const DashboardProjects = () => {
       <header className={styles.header}>
         <p className={styles.eyebrow}>GESTIÓN DE KSOFT</p>
         <h1 className={styles.title}>Proyectos</h1>
-        <p className={styles.subtitle}>Gestiona el trabajo interno y prepara las tarjetas y páginas públicas de tus proyectos.</p>
+        <p className={styles.subtitle}>Gestiona proyectos de clientes, productos SaaS y proyectos propios de Ksoft. Organiza el equipo, el alcance y sus tareas.</p>
       </header>
       <ProjectsManager />
     </>

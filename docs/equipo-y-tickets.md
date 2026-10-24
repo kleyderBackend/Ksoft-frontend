@@ -17,6 +17,21 @@ El correo debe ser nuevo. Crear empleado no restablece contraseñas de cuentas e
 
 Desde Proyectos/Tareas → Asignar equipo de trabajo se seleccionan desarrolladores y QA. Para asignar una tarea, primero debe existir asignación al proyecto correspondiente.
 
+### Proyectos propios y desarrollo de SaaS
+
+En Proyectos → Gestión interna puedes crear un proyecto de Cliente, un SaaS propio o un Proyecto propio. Solo el primero solicita cliente y cotización. Los proyectos existentes sin tipo conservan su clasificación según tengan o no un cliente asociado.
+
+Para Dental, Travel u otro producto, abre Productos → Gestionar desarrollo. Si todavía no tiene proyecto de desarrollo, se prepara el formulario con su nombre y su ficha vinculada; si ya tiene proyectos, se muestran los vinculados a ese producto. También puedes crear un SaaS sin ficha comercial y vincularla más adelante.
+
+1. Completa el alcance y las fechas del proyecto.
+2. Usa Guardar y asignar equipo para seleccionar desarrolladores o QA.
+3. En el proyecto, pulsa Crear tarea; el proyecto queda seleccionado.
+4. Completa la tarea y usa Guardar y asignar equipo para elegir responsables entre los integrantes del proyecto.
+
+Tareas permite filtrar por proyecto/SaaS y por tipo de proyecto. El campo de referencia del responsable es una nota; el acceso real depende de la asignación de cuentas. Los desarrolladores y QA reciben únicamente el trabajo asignado, tanto para clientes como para productos propios.
+
+La gestión interna y sus tareas no se publican en la web. La ficha comercial se sigue editando y publicando en Productos. Para archivar un producto, primero desvincula o archiva sus proyectos de desarrollo; así se evitan relaciones rotas.
+
 Suspender una cuenta o cambiarla a Empleado retira sus asignaciones. Se conserva su historial de tickets; al reactivar la cuenta, las asignaciones deben establecerse de nuevo. Todas las operaciones consultan el acceso vigente en el servidor.
 
 ## Tickets

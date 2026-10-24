@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {test} from 'node:test';
+import {products} from '../src/config/products.ts';
+import {normalizeProduct,parseAdminData} from '../src/Components/dashboards/adminModel.ts';
+import {emptyWorkspace,validateRecord,projectType} from '../src/Components/dashboards/businessModel.ts';
+import {newBusinessRecord} from '../src/Components/dashboards/models/businessFlowModel.ts';
+import {moveToTrash} from '../src/Components/dashboards/models/recoveryActions.ts';
+const base=()=>({version:1,posts:[],activity:[],workspace:emptyWorkspace(),products:products.map(product=>normalizeProduct({...product,id:product.slug,logo:product.logo??'',editorialStatus:'draft',updatedAt:''}))});
+test('owned SaaS development links to a product and creates task forms without a client or quote',()=>{
+ const data=base(),product=data.products[0];
+ const project=newBusinessRecord(data,'projects','?productId='+product.id);
+ Object.assign(project.values,{scope:'Preparar el piloto y sus funcionalidades.'});
+ assert.equal(project.values.type,'SaaS propio');assert.equal(project.values.productId,product.id);assert.equal(project.values.name,product.name);
+ assert.equal(project.values.client,'');assert.equal(project.values.quote,'');
+ assert.equal(validateRecord('projects',project.values,data.workspace,project.id),'');
+ data.workspace.records.projects.push(project);
+ const task=newBusinessRecord(data,'tasks','?project='+project.id);Object.assign(task.values,{name:'Validar el registro de usuarios'});
+ data.workspace.records.tasks.push(task);
+ const restored=parseAdminData(JSON.stringify(data));assert.equal(restored.workspace.records.tasks[0].values.project,project.id);assert.equal(restored.workspace.records.projects[0].values.productId,product.id);
+ assert.throws(()=>moveToTrash(data,'products',product.id),/desarrollo vinculados/);
+ assert.throws(()=>newBusinessRecord(data,'projects','?productId=unknown'),/ya no está disponible/);
+});
+test('internal initiatives and customer projects retain distinct business rules and legacy classification',()=>{
+ const data=base(),project=newBusinessRecord(data,'projects','?type=Proyecto%20propio');Object.assign(project.values,{name:'Portal de Ksoft',scope:'Mejorar las herramientas internas.'});
+ assert.equal(validateRecord('projects',project.values,data.workspace),'');
+ assert.match(validateRecord('projects',{...project.values,type:'Cliente'},data.workspace),/cliente/);
+ assert.match(validateRecord('projects',{...project.values,client:'missing'},data.workspace),/relacionado/);
+ assert.match(validateRecord('projects',{...project.values,productId:data.products[0].id},data.workspace),/SaaS/);
+ assert.equal(projectType({client:'legacy'}),'Cliente');assert.equal(projectType({}),'Proyecto propio');
+ data.workspace.records.projects.push(project);data.workspace.records.projects[0].values.productId='missing';data.workspace.records.projects[0].values.type='SaaS propio';
+ assert.throws(()=>parseAdminData(JSON.stringify(data)),/producto vinculado/);
+});

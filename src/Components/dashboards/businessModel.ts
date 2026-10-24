@@ -15,6 +15,10 @@ export interface BusinessRecord {
   createdAt: string;
   updatedAt: string;
 }
+export const projectTypes = ["Proyecto propio", "SaaS propio", "Cliente"];
+export function projectType(values: Record<string,string>): string {
+  return values.type || (values.client || values.quote ? "Cliente" : "Proyecto propio");
+}
 export interface Workspace {
   records: Record<ModuleKey, BusinessRecord[]>;
   settings: { company: string; owner: string; email: string; currency: "COP" };
@@ -127,9 +131,11 @@ export const modules: Record<ModuleKey, ModuleDefinition> = {
     title: "Proyectos",
     singular: "proyecto",
     intro:
-      "Organiza entregas, alcance y avances de los proyectos de tu empresa.",
+      "Organiza proyectos para clientes, productos SaaS y proyectos propios con su equipo y tareas.",
     fields: [
       name("Nombre del proyecto"),
+      {key:"type",label:"Tipo de proyecto",type:"select",options:projectTypes},
+      {key:"productId",label:"Producto SaaS vinculado (opcional)",type:"select"},
       client,
       {key:"quote",label:"Cotización de origen",type:"select",relation:"quotes"},
       state(["Planificado", "En curso", "En pausa", "Completado"]),
@@ -158,7 +164,7 @@ export const modules: Record<ModuleKey, ModuleDefinition> = {
         type: "select",
         relation: "projects",
       },
-      { key: "owner", label: "Responsable" },
+      { key: "owner", label: "Referencia del responsable (opcional)" },
       due,
       {
         key: "priority",
@@ -393,6 +399,11 @@ export function validateRecord(
     }
   }
   if(module==="projects"&&values.quote&&workspace.records.quotes.find(quote=>quote.id===values.quote)?.values.client!==values.client) return "El cliente del proyecto debe coincidir con su cotización de origen.";
+  if(module==="projects"){
+    if(values.type&&values.type!=="Cliente"&&(values.client||values.quote))return "Los proyectos propios y SaaS no llevan cliente ni cotización.";
+    if(strictBusinessRules&&values.type==="Cliente"&&!values.client)return "Selecciona el cliente del proyecto.";
+    if(values.productId&&projectType(values)!=="SaaS propio")return "El producto vinculado solo corresponde a un proyecto SaaS propio.";
+  }
   if(strictBusinessRules&&module==="quotes"&&id){
     const allocated=workspace.records.payments.filter(payment=>payment.values.quote===id&&payment.values.status!=="Anulado").reduce((sum,payment)=>sum+Math.round(Number(payment.values.amount||0)*100),0);
     if(allocated>Math.round(Number(values.amount||0)*100)) return "El valor de la cotización no puede ser menor a sus cobros registrados.";

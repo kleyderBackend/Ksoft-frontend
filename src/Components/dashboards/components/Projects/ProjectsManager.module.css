@@ -6,3 +6,10 @@
 .tabs { display:flex; flex-wrap:wrap; gap:12px; padding-bottom:20px; border-bottom:1px solid #29415a; }
 .tabs button { border:1px solid #40516b; border-radius:10px; background:#142238; color:#cbd5e1; padding:12px 18px; font:inherit; cursor:pointer; font-size:14px; }
 .tabs button[aria-pressed="true"] { border-color:#22d3ee; background:#10354b; color:#67e8f9; }
+.workspaceIntro {padding:24px;border:1px solid #26415b;border-radius:16px;background:#0c1b2d;display:grid;gap:16px;}
+.workspaceIntro h2,.workspaceIntro p {margin:0;line-height:1.7;}
+.workspaceIntro p,.workspaceIntro small {color:#a4b8cd;line-height:1.7;}
+.quickActions {display:flex;flex-wrap:wrap;gap:12px;}
+.quickActions a {padding:12px 16px;border:1px solid #30536d;border-radius:10px;color:#67e8f9;text-decoration:none;background:#10283c;}
+.quickActions a:hover {border-color:#67e8f9;}
+.quickActions a:focus-visible {outline:2px solid #67e8f9;outline-offset:3px;}

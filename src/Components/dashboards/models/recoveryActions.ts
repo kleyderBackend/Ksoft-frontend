@@ -7,6 +7,7 @@ import type { EntityModule } from "./recoveryModel";
 export function moveToTrash(data: AdminData,module: EntityModule,id: string) {
   const items=getEntities(data,module),item=items.find(record=>record.id===id);
   if(!item) throw new Error("El registro ya no existe.");
+  if(module==="products"&&data.workspace.records.projects.some(project=>project.values.productId===id))throw new Error("Este producto tiene proyectos de desarrollo vinculados. Desvincúlalos o archívalos antes de enviar el producto a la papelera.");
   if("values" in item){
     const references=referencedBy(data.workspace,module as ModuleKey,id);
     if(references.length) throw new Error("Antes de archivarlo, cambia sus relaciones: "+references.join("; ")+".");

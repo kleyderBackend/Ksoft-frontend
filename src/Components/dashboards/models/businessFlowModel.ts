@@ -12,6 +12,13 @@ export function newBusinessRecord(data: AdminData,module: ModuleKey,search="",to
     if(!related) throw new Error("El registro relacionado ya no existe. Revisa la relación antes de continuar.");
     values[field.key]=id;
   }
+  if(module==="projects"){
+    values.progress="0";
+    if(values.client||values.quote)values.type="Cliente";
+    else if(params.get("type")){if(!modules.projects.fields.find(field=>field.key==="type")!.options!.includes(params.get("type")!))throw new Error("El tipo de proyecto no es válido.");values.type=params.get("type")!;}
+    const productId=params.get("productId");
+    if(productId){const product=data.products.find(item=>item.id===productId);if(!product)throw new Error("El producto ya no está disponible.");if(values.client||values.quote)throw new Error("Un SaaS propio no se vincula a una cotización de cliente.");values.type="SaaS propio";values.productId=product.id;values.name=product.name;}
+  }
   if(module==="payments"&&values.quote){
     const quote=data.workspace.records.quotes.find(record=>record.id===values.quote)!;
     values.client=quote.values.client;values.name="Cobro: "+quote.values.name;

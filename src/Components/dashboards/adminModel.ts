@@ -216,10 +216,12 @@ export function parseAdminData(raw: string): AdminData {
   )
     throw new Error("Registros inválidos");
   assertRecoveryShape(data);
+  const workspace=data.workspace?parseWorkspace(data.workspace):emptyWorkspace();
+  for(const project of workspace.records.projects){
+    if(project.values.productId&&!data.products.some(product=>product.id===project.values.productId))throw new Error("El producto vinculado al proyecto ya no está disponible. Restaura el producto o cambia la vinculación.");
+  }
   return {
     ...data,
-    workspace: data.workspace
-      ? parseWorkspace(data.workspace)
-      : emptyWorkspace(),
+    workspace,
   };
 }

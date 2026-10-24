@@ -62,6 +62,24 @@ test('developer permissions are enforced by PostgreSQL, assignments are explicit
   assert.equal((await db.query('select payload from ksoft_public_site')).rows[0].payload.posts[0].title,'Novedad');
   await rpc('ksoft_commit_workspace',[draft,revision,'posts','post','unpublish']);
   assert.equal((await db.query('select payload from ksoft_public_site')).rows[0].payload.posts.length,0);
+
+  // An owned SaaS uses the same secure assignment flow without client/quote records.
+  await role(admin);let ownView=await rpc('ksoft_read_workspace');let ownData=ownView.document;
+  ownData.products.push({id:'owned-product',name:'Dental',slug:'dental'});
+  ownData.workspace.records.projects.push(record('owned-project',{name:'Dental piloto',type:'SaaS propio',productId:'owned-product',scope:'Preparar piloto',status:'En curso',progress:'0'}));
+  ownData.workspace.records.tasks.push(record('owned-task',{name:'Verificar citas',project:'owned-project',status:'Pendiente',notes:''}));
+  let ownRevision=await rpc('ksoft_commit_workspace',[ownData,ownView.revision]);
+  const badOwn=structuredClone(ownData);badOwn.workspace.records.projects.find(p=>p.id==='owned-project').values.client='c';
+  await assert.rejects(rpc('ksoft_commit_workspace',[badOwn,ownRevision]),/INTERNAL_PROJECT_HAS_CLIENT/);
+  const missingProduct=structuredClone(ownData);missingProduct.products=[];
+  await assert.rejects(rpc('ksoft_commit_workspace',[missingProduct,ownRevision]),/INVALID_RELATION/);
+  await rpc('ksoft_assign_record',['projects','owned-project',[dev]]);await rpc('ksoft_assign_record',['tasks','owned-task',[dev]]);
+  await role(dev);const ownWork=await rpc('ksoft_read_staff_workspace');
+  assert.equal(ownWork.document.workspace.records.projects.find(p=>p.id==='owned-project').values.type,'SaaS propio');
+  assert.ok(ownWork.document.workspace.records.tasks.some(t=>t.id==='owned-task'));assert.deepEqual(ownWork.document.products,[]);
+  const ownUpdate=structuredClone(ownWork.document);ownUpdate.workspace.records.tasks.find(t=>t.id==='owned-task').values.status='Completada';
+  await rpc('ksoft_save_developer_workspace',[ownUpdate,ownWork.revision]);
+
  // Team management and private ticket permissions use the real SQL entry points.
   await role(admin);
   await rpc('ksoft_manage_team',[other,'Control de calidad','qa',true]);
