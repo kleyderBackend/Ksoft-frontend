@@ -15,7 +15,7 @@ export function newBusinessRecord(data: AdminData,module: ModuleKey,search="",to
   }
   if(module==="tasks"&&params.get('productId'))values.project=productTaskTarget(data,params.get('productId')!);
   if(module==="projects"){
-    values.progress="0";
+    values.progress="";
     if(values.client||values.quote)values.type="Cliente";
     else if(params.get("type")){if(!modules.projects.fields.find(field=>field.key==="type")!.options!.includes(params.get("type")!))throw new Error("El tipo de proyecto no es válido.");values.type=params.get("type")!;}
     const productId=params.get("productId");
@@ -29,7 +29,7 @@ export function newBusinessRecord(data: AdminData,module: ModuleKey,search="",to
   }
   if(module==="projects"&&values.quote){
     const quote=data.workspace.records.quotes.find(record=>record.id===values.quote)!;
-    values.client=quote.values.client;values.scope=quote.values.scope;values.name=quote.values.name;values.progress="0";
+    values.client=quote.values.client;values.scope=quote.values.scope;values.name=quote.values.name;values.progress="";
   }
   return {id:crypto.randomUUID(),values,createdAt:now,updatedAt:now};
 }

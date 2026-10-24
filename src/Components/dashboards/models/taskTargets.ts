@@ -27,7 +27,7 @@ export function prepareTaskWorkspace(data:AdminData,input:BusinessRecord):AdminD
   if(!project){
    const archived=data.trash?.find(entry=>entry.module==='projects'&&'values' in entry.payload&&entry.payload.values.productId===productId);
    if(archived&&'values' in archived.payload){project=structuredClone(archived.payload);trash=data.trash?.filter(entry=>entry.id!==archived.id);}
-   else {const now=new Date().toISOString();project={id:crypto.randomUUID(),createdAt:now,updatedAt:now,values:{name:product.name,type:'SaaS propio',productId:product.id,client:'',quote:'',status:'Planificado',progress:'0',start:'',due:'',scope:'Desarrollo y mantenimiento de '+product.name+'.',notes:''}};}
+   else {const now=new Date().toISOString();project={id:crypto.randomUUID(),createdAt:now,updatedAt:now,values:{name:product.name,type:'SaaS propio',productId:product.id,client:'',quote:'',status:'Planificado',progress:'',start:'',due:'',scope:'Desarrollo y mantenimiento de '+product.name+'.',notes:''}};}
    projects=[...projects,project];
   }
   task.values.project=project.id;

@@ -42,6 +42,9 @@ test('developer permissions are enforced by PostgreSQL, assignments are explicit
   const edited=structuredClone(view.document);edited.workspace.records.projects[0].values.progress='40';edited.workspace.records.tasks[0].values.status='En curso';edited.workspace.records.tasks[0].values.notes='Avance técnico';
   revision=await rpc('ksoft_save_developer_workspace',[edited,revision]);
   view=await rpc('ksoft_read_developer_workspace');assert.equal(view.document.workspace.records.projects[0].values.progress,'40');
+  const unknownProgress=structuredClone(view.document);unknownProgress.workspace.records.projects[0].values.progress='';
+  revision=await rpc('ksoft_save_developer_workspace',[unknownProgress,revision]);
+  view=await rpc('ksoft_read_developer_workspace');assert.equal(view.document.workspace.records.projects[0].values.progress,'');
   const invalidType=structuredClone(view.document);invalidType.workspace.records.projects[0].values.progress=50;
   await assert.rejects(rpc('ksoft_save_developer_workspace',[invalidType,revision]),/INVALID_FIELD_TYPE/);
   const bad=structuredClone(view.document);bad.workspace.records.projects[0].values.scope='Escalation';

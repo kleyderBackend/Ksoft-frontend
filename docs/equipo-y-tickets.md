@@ -30,6 +30,8 @@ Productos → Gestionar desarrollo permite consultar los proyectos vinculados. T
 3. En el proyecto, pulsa Crear tarea; el proyecto queda seleccionado.
 4. Completa la tarea y usa Guardar y asignar equipo. Para un SaaS puedes elegir directamente desarrolladores o QA activos; al asignar se incorporan al proyecto. En proyectos de clientes e iniciativas internas, elige entre los integrantes ya asignados.
 
+Los proyectos pueden estar En curso o En pruebas; ambos estados cuentan como activos. El avance es opcional: si no existe una estimación, se muestra Avance sin definir. Un 0 % se utiliza únicamente cuando se ha guardado ese valor expresamente.
+
 Tareas permite filtrar por proyecto/SaaS y por tipo de proyecto. El campo de referencia del responsable es una nota; el acceso real depende de la asignación de cuentas. Los desarrolladores y QA reciben únicamente el trabajo asignado, tanto para clientes como para productos propios.
 
 La gestión interna y sus tareas no se publican en la web. La ficha comercial se sigue editando y publicando en Productos. Para archivar un producto, primero desvincula o archiva sus proyectos de desarrollo; así se evitan relaciones rotas.

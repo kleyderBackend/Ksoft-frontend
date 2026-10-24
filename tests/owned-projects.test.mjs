@@ -14,7 +14,7 @@ test('registered SaaS are task targets even when there are no internal projects'
   const task=newBusinessRecord(data,'tasks','?productId='+product.id);task.values.name='Revisar funcionalidades';
   assert.equal(task.values.project,productTaskTarget(data,product.id));
   const next=prepareTaskWorkspace(data,task);const project=next.workspace.records.projects[0];
-  assert.equal(project.values.productId,product.id);assert.equal(next.workspace.records.tasks[0].values.project,project.id);
+  assert.equal(project.values.productId,product.id);assert.equal(project.values.progress,'');assert.equal(next.workspace.records.tasks[0].values.project,project.id);
   assert.doesNotThrow(()=>parseAdminData(JSON.stringify(next)));assert.equal(data.workspace.records.projects.length,0);
   const second=newBusinessRecord(next,'tasks','?productId='+product.id);second.values.name='Revisar accesos';
   assert.equal(second.values.project,project.id);
@@ -48,6 +48,7 @@ test('owned SaaS development links to a product and creates task forms without a
 test('internal initiatives and customer projects retain distinct business rules and legacy classification',()=>{
  const data=base(),project=newBusinessRecord(data,'projects','?type=Proyecto%20propio');Object.assign(project.values,{name:'Portal de Ksoft',scope:'Mejorar las herramientas internas.'});
  assert.equal(validateRecord('projects',project.values,data.workspace),'');
+ assert.equal(validateRecord('projects',{...project.values,status:'En pruebas',progress:''},data.workspace),'');
  assert.match(validateRecord('projects',{...project.values,type:'Cliente'},data.workspace),/cliente/);
  assert.match(validateRecord('projects',{...project.values,client:'missing'},data.workspace),/relacionado/);
  assert.match(validateRecord('projects',{...project.values,productId:data.products[0].id},data.workspace),/SaaS/);

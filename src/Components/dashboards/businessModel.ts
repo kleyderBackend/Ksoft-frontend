@@ -138,7 +138,7 @@ export const modules: Record<ModuleKey, ModuleDefinition> = {
       {key:"productId",label:"Producto SaaS vinculado (opcional)",type:"select"},
       client,
       {key:"quote",label:"Cotización de origen",type:"select",relation:"quotes"},
-      state(["Planificado", "En curso", "En pausa", "Completado"]),
+      state(["Planificado", "En curso", "En pruebas", "En pausa", "Completado"]),
       { key: "start", label: "Fecha de inicio", type: "date" },
       due,
       { key: "progress", label: "Avance (%)", type: "number" },

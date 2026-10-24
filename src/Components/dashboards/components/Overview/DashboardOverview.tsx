@@ -18,7 +18,7 @@ export const DashboardOverview = () => {
   const records = data.workspace.records;
   const totals = financialSummary(data.workspace);
   const activeProjects = records.projects.filter(
-    (p) => p.values.status === "En curso",
+    (p) => ["En curso", "En pruebas"].includes(p.values.status),
   );
   const openQuotes = records.quotes.filter((q) =>
     ["Borrador", "Enviada"].includes(q.values.status),
